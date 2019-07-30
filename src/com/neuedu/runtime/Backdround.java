@@ -17,7 +17,7 @@ public class Backdround extends BaseSprite implements Drawable, Moveable {
     private Image image;
 
     public Backdround() {
-        this(0, -(ImageMap.get("bg01").getHeight(null) * 2 - FrameConstant.FRAME_HEIGHT), ImageMap.get("bg01"));
+        this(0, -(ImageMap.get("bg01").getHeight(null) * 625 / 1000 - FrameConstant.FRAME_HEIGHT), ImageMap.get("bg01"));
     }
 
     public Backdround(int x, int y, Image image) {
@@ -31,7 +31,8 @@ public class Backdround extends BaseSprite implements Drawable, Moveable {
      */
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image,getX(), getY(), FrameConstant.FRAME_WIDTH,image.getHeight(null) * 2,null);
+        g.drawImage(image,getX(), getY(), image.getWidth(null) * 625 / 1000,
+                image.getHeight(null) * 625 / 1000,null);
         move();
     }
 
@@ -40,7 +41,10 @@ public class Backdround extends BaseSprite implements Drawable, Moveable {
      */
     @Override
     public void move() {
-//        setY(getY() + 1);
+        setY(getY() + FrameConstant.SPEED);
+        if (getY() == 50){
+            setY(-(ImageMap.get("bg01").getHeight(null) * 625 / 1000 - FrameConstant.FRAME_HEIGHT));
+        }
     }
 
 

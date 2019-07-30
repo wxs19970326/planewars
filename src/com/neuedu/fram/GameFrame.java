@@ -2,16 +2,25 @@ package com.neuedu.fram;
 
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.runtime.Backdround;
-import com.neuedu.runtime.Hero;
+import com.neuedu.runtime.Bullet;
+import com.neuedu.runtime.Plane;
+import com.neuedu.runtime.Skill;
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameFrame extends Frame {
 
-    Backdround bg = new Backdround();
-    Hero hero = new Hero();
+    private Backdround bg = new Backdround();
+    private Plane plane = new Plane();
+
+    /**
+     *存放子弹的容器
+     */
+    public List<Bullet> bulletList = new CopyOnWriteArrayList<>();
+    public List<Skill> skills = new CopyOnWriteArrayList<>();
 
     public GameFrame(){
         init();
@@ -20,7 +29,19 @@ public class GameFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         bg.draw(g);
-        hero.draw(g);
+        plane.draw(g);
+
+        //遍历子弹容器一一画出来
+        for (Bullet bullet : bulletList) {
+            bullet.draw(g);
+        }
+
+        //遍历技能集合一一画出来
+        for (Skill skill : skills) {
+            skill.draw(g);
+        }
+//        System.out.println(bulletList.size());
+
     }
 
     private void init(){
@@ -41,6 +62,7 @@ public class GameFrame extends Frame {
             }
         });
 
+
         //刷新
         new Thread(){
             @Override
@@ -56,6 +78,20 @@ public class GameFrame extends Frame {
             }
         }.start();
 
+        /**
+         * 添加键盘监听器
+         */
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                plane.keyPressed(e);
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                plane.keyReleased(e);
+            }
+        });
 
         setVisible(true);
     }
