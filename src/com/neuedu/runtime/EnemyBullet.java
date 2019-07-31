@@ -15,12 +15,15 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
     private Image image;
     private int speed = FrameConstant.SPEED * 5;
 
+    private int type;
+
     public EnemyBullet() {
     }
 
-    public EnemyBullet(int x, int y, Image image) {
+    public EnemyBullet(int x, int y, Image image, int type) {
         super(x, y);
         this.image = image;
+        this.type = type;
     }
 
     @Override
@@ -32,7 +35,14 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void move() {
-        setY(getY() + speed);
+        if (type == 0) {
+            setY(getY() + speed);
+        }
+
+        if (type == 1) {
+
+        }
+
         outOfBounds();
     }
 

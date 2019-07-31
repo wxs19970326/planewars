@@ -70,14 +70,14 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      */
     @Override
     public void draw(Graphics g) {
-        if (lv == 4){
-            g.drawImage(imageFinally,getX(), getY(), imageFinally.getWidth(null),
-                    imageFinally.getHeight(null),null);
-            g.setColor(Color.red);
-            g.drawRoundRect(getX(),getY() + imageFinally.getHeight(null),imageFinally.getWidth(null),10,5,5);
-            g.fillRoundRect(getX(),getY() + imageFinally.getHeight(null),bloodFinally,10,5,5);
-
-        }
+//        if (lv == 4){
+//            g.drawImage(imageFinally,getX(), getY(), imageFinally.getWidth(null),
+//                    imageFinally.getHeight(null),null);
+//            g.setColor(Color.red);
+//            g.drawRoundRect(getX(),getY() + imageFinally.getHeight(null),imageFinally.getWidth(null),10,5,5);
+//            g.fillRoundRect(getX(),getY() + imageFinally.getHeight(null),bloodFinally,10,5,5);
+//
+//        }
         if (lv != 4) {
             g.drawImage(image,getX(), getY(), image.getWidth(null),
                     image.getHeight(null),null);
@@ -85,16 +85,16 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             g.drawRoundRect(getX(),getY() + image.getHeight(null),image.getWidth(null),10,5,5);
             g.fillRoundRect(getX(),getY() + image.getHeight(null),blood,10,5,5);
         }
-        g.setColor(Color.magenta);
-        g.drawRoundRect(20, 45,100,10,5,5);
         g.setColor(Color.white);
-        g.fillRoundRect(20, 45,energy,10,5,5);
+        g.drawRoundRect(20, FrameConstant.FRAME_HEIGHT - 20,200,10,5,5);
+//        g.setColor(Color.white);
+        g.fillRoundRect(20, FrameConstant.FRAME_HEIGHT - 20,energy,10,5,5);
         move();
         setBlood();
         setEnergy();
         addScore();
-        g.drawString("得分为:"+score,400, 55);
-        g.drawString("当前等级:Lv"+lv,400, 75);
+        g.drawString("得分为:"+score,20, 68);
+        g.drawString("当前等级:Lv"+lv,20, 88);
     }
 
     /**
@@ -165,7 +165,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             fire();
         }
         if (e.getKeyCode() == KeyEvent.VK_K){
-            if (energy == 100) {
+            if (energy == 200) {
                 skill();
                 energy = 0;
             }
@@ -224,9 +224,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
                 gameFrame.bulletList.add(bullet);
             }
         }
-        if (lv == 4) {
-            skill();
-        }
+//        if (lv == 4) {
+//            skill();
+//        }
     }
     /**
      * 飞机技能
@@ -251,16 +251,16 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
                 blood = blood - 4;
                 flagBlood = false;
             }
-            if (lv == 4) {
-                bloodFinally = bloodFinally - 5;
-                flagBlood = false;
-            }
+//            if (lv == 4) {
+//                bloodFinally = bloodFinally - 5;
+//                flagBlood = false;
+//            }
             if (blood <= 0 && lv != 4) {
                 GameFrame.gameover = true;
             }
-            if (bloodFinally <= 0 && lv == 4) {
-                GameFrame.gameover = true;
-            }
+//            if (bloodFinally <= 0 && lv == 4) {
+//                GameFrame.gameover = true;
+//            }
         }
     }
 
@@ -268,8 +268,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      * 飞机能量条
      */
     private void setEnergy(){
-        if (flagEnergy && energy < 100) {
-            energy = energy + 5;
+        if (flagEnergy && energy < 200) {
+            energy = energy + 10;
             flagEnergy = false;
         }
     }
@@ -289,9 +289,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             lv = 3;
         }
 
-        if (score == 120) {
-            lv = 4;
-        }
+//        if (score == 120) {
+//            lv = 4;
+//        }
     }
 
     /**

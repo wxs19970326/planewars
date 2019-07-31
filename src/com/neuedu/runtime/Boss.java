@@ -4,6 +4,8 @@ import com.neuedu.base.BaseSprite;
 import com.neuedu.base.Drawable;
 import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
+import com.neuedu.fram.GameFrame;
+import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
 
 import java.awt.*;
@@ -25,6 +27,8 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             ImageMap.get("boss9"),
     };
     public static boolean isLive = true;
+    private int blood = image[0].getWidth(null);
+    public static boolean isBoold;
     private int count;
 
     public Boss() {
@@ -40,9 +44,14 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void draw(Graphics g) {
+        move();
+        setBoold();
         timer++;
         g.drawImage(image[count],getX(), getY(), image[count].getWidth(null),
                 image[count].getHeight(null),null);
+        g.setColor(Color.green);
+        g.drawRoundRect(getX(),getY() + 5,image[count].getWidth(null),10,5,5);
+        g.fillRoundRect(getX(),getY() + 5,blood,10,5,5);
         if (timer == 2) {
             count++;
             if (count == 8) {
@@ -50,23 +59,24 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             }
             timer = 0;
         }
-        move();
     }
 
     @Override
     public void move() {
-        if (getY() <= 40) {
-            setY(getY() + speed);
-        }else {
-            if (!dir) {
-                setX(getX() - speed);
-                if (getX() <= 0) {
-                    dir = true;
-                }
-            } else {
-                setX(getX() + speed);
-                if (getX() >= FrameConstant.FRAME_WIDTH - image[0].getWidth(null)){
-                    dir = false;
+        if (isLive) {
+            if (getY() <= 40) {
+                setY(getY() + speed);
+            }else {
+                if (!dir) {
+                    setX(getX() - speed);
+                    if (getX() <= 0) {
+                        dir = true;
+                    }
+                } else {
+                    setX(getX() + speed);
+                    if (getX() >= FrameConstant.FRAME_WIDTH - image[0].getWidth(null)){
+                        dir = false;
+                    }
                 }
             }
         }
@@ -78,7 +88,22 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
-     *
+     *boss开枪
      */
+
+    private void setBoold(){
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        if (isBoold) {
+            blood = blood - 2;
+            isBoold = false;
+            if (blood <= 0) {
+                isLive = false;
+                Explode explode = new Explode(getX(),getY(),9);
+                gameFrame.explodes.add(explode);
+                GameFrame.pass = true;
+            }
+        }
+    }
+
 
 }

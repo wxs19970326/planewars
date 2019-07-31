@@ -64,7 +64,7 @@ public class Skill extends BaseSprite implements Drawable, Moveable {
         for (EnemyPlane enemyPlane : list) {
             if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
                 gameFrame.enemyPlanes.remove(enemyPlane);
-                Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY());
+                Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY(), 0);
                 gameFrame.explodes.add(e);
 
                 //打中后飞机加分开关变为true

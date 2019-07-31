@@ -102,7 +102,8 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
             EnemyBullet bullet = new EnemyBullet(
                     getX() + images[type].getWidth(null) / 2 - ImageMap.get("eb01").getWidth(null) / 2,
                     getY() + images[type].getHeight(null),
-                    ImageMap.get("eb01")
+                    ImageMap.get("eb01"),
+                    0
             );
             gameFrame.enemyBullets.add(bullet);
         }

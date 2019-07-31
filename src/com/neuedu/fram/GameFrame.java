@@ -14,6 +14,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameFrame extends Frame {
     //游戏开关
     public static boolean gameover;
+    //游戏胜利开关
+    public static boolean pass;
 
     private static Random random = new Random();
 
@@ -53,16 +55,21 @@ public class GameFrame extends Frame {
     public void paint(Graphics g) {
         bg.draw(g);
         if (!gameover) {
+
+            if (!Boss.isLive && !pass) {
+                enemyPlane.creatPlane();
+            } else if (Boss.isLive){
+                boss.draw(g);
+            }
             plane.draw(g);
             plane.collisionChecking(items);
-            if (!Boss.isLive) {
-                enemyPlane.creatPlane();
-            }
+
 //            System.out.println(bulletList.size());
             //遍历子弹容器一一画出来
             for (Bullet bullet : bulletList) {
                 bullet.draw(g);
                 bullet.collisionChecking(enemyPlanes);
+                bullet.colBossChecked(boss);
             }
 
             //遍历技能集合一一画出来
@@ -95,7 +102,7 @@ public class GameFrame extends Frame {
                 effective.draw(g);
             }
 
-            boss.draw(g);
+
 
 //        System.out.println(bulletList.size());
         }

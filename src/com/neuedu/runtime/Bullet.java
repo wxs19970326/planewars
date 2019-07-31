@@ -64,7 +64,7 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
                 Plane.isScore = true;
 
                 //打中则添加爆炸效果
-                Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY());
+                Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY(), 9);
                 gameFrame.explodes.add(e);
             }
         }
@@ -80,4 +80,13 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
         }
 //        System.out.println(gameFrame.bulletList.size());
     }
+
+    public void colBossChecked(Boss boss) {
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        if (boss.getRectangle().intersects(this.getRectangle())) {
+            gameFrame.bulletList.remove(this);
+            Boss.isBoold = true;
+        }
+    }
+
 }
