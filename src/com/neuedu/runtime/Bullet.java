@@ -7,7 +7,10 @@ import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.util.DataStore;
 
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.List;
 
 public class Bullet extends BaseSprite implements Drawable, Moveable {
 
@@ -36,12 +39,39 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
+     * 构建子弹矩形
+     * @return
+     */
+    @Override
+    public Rectangle getRectangle() {
+        return new Rectangle(getX(), getY(), image.getWidth(null), image.getHeight(null));
+    }
+
+    /**
+     * 判断我方子弹与敌方是否撞击
+     * @param list
+     */
+    public void collisionChecking(List<EnemyPlane> list) {
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        for (EnemyPlane enemyPlane : list) {
+            if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
+                list.remove(enemyPlane);
+                gameFrame.bulletList.remove(this);
+                Plane.flagEnergy = true;
+                Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY());
+                gameFrame.explodes.add(e);
+            }
+        }
+    }
+
+    /**
      * 判断子弹越界
      */
     private void outOfBounds() {
         GameFrame gameFrame = DataStore.get("gameFrame");
-        if (getY() < 45 - image.getHeight(null)) {
+        if (getY() < 40) {
             gameFrame.bulletList.remove(this);
         }
+        System.out.println(gameFrame.bulletList.size());
     }
 }

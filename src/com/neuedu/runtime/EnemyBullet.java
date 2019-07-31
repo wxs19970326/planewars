@@ -6,19 +6,19 @@ import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.util.DataStore;
+import com.neuedu.util.ImageMap;
 
 import java.awt.*;
-import java.util.List;
 
-public class Skill extends BaseSprite implements Drawable, Moveable {
+public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
 
     private Image image;
-    private int speed = FrameConstant.SPEED * 8;
+    private int speed = FrameConstant.SPEED * 5;
 
-    public Skill() {
+    public EnemyBullet() {
     }
 
-    public Skill(int x, int y, Image image) {
+    public EnemyBullet(int x, int y, Image image) {
         super(x, y);
         this.image = image;
     }
@@ -32,12 +32,12 @@ public class Skill extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void move() {
-        setY(getY() - speed);
+        setY(getY() + speed);
         outOfBounds();
     }
 
     /**
-     * 构建技能矩形
+     * 构建敌机子弹矩形
      * @return
      */
     @Override
@@ -46,27 +46,28 @@ public class Skill extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
-     * 判断子弹越界
+     * 判断子弹是否越界
      */
     private void outOfBounds() {
         GameFrame gameFrame = DataStore.get("gameFrame");
-        if (getY() < 45 - image.getHeight(null)) {
-            gameFrame.skills.remove(this);
+        if (getY() >FrameConstant.FRAME_HEIGHT - image.getHeight(null)) {
+            gameFrame.enemyBullets.remove(this);
         }
     }
 
     /**
-     * 判断我方技能与敌方飞机是否碰撞
+     * 判断敌方子弹与己方飞机是否碰撞
      * @param plane
      */
-    public void collisionChecking(List<EnemyPlane> list) {
+    public void collisionChecking(Plane plane){
         GameFrame gameFrame = DataStore.get("gameFrame");
-        for (EnemyPlane enemyPlane : list) {
-            if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
-                gameFrame.enemyPlanes.remove(enemyPlane);
-                Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY());
-                gameFrame.explodes.add(e);
-            }
+        if (plane.getRectangle().intersects(this.getRectangle())) {
+            gameFrame.enemyBullets.remove(this);
+            Plane.flagBlood = true;
         }
+
     }
+
+
+
 }
