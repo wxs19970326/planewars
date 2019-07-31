@@ -2,20 +2,26 @@ package com.neuedu.fram;
 
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.runtime.*;
+import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameFrame extends Frame {
-
+    //游戏开关
     public static boolean gameover;
 
+    private static Random random = new Random();
+
+    //背景
     private Backdround bg = new Backdround();
     private Plane plane = new Plane();
     private EnemyPlane enemyPlane = new EnemyPlane();
+    private Boss boss = new Boss();
 
     //存放子弹的集合
     public List<Bullet> bulletList = new CopyOnWriteArrayList<>();
@@ -32,6 +38,12 @@ public class GameFrame extends Frame {
     //存放爆炸的集合
     public List<Explode> explodes = new CopyOnWriteArrayList<>();
 
+    //存放道具
+    public List<Item> items = new CopyOnWriteArrayList<>();
+
+    //存放道具效果
+    public List<ItemEffective> itemEfftive = new CopyOnWriteArrayList<>();
+
 
     public GameFrame(){
         init();
@@ -42,8 +54,11 @@ public class GameFrame extends Frame {
         bg.draw(g);
         if (!gameover) {
             plane.draw(g);
-            enemyPlane.creatPlane();
-            System.out.println(bulletList.size());
+            plane.collisionChecking(items);
+            if (!Boss.isLive) {
+                enemyPlane.creatPlane();
+            }
+//            System.out.println(bulletList.size());
             //遍历子弹容器一一画出来
             for (Bullet bullet : bulletList) {
                 bullet.draw(g);
@@ -66,17 +81,40 @@ public class GameFrame extends Frame {
             for (EnemyBullet enemyBullet : enemyBullets) {
                 enemyBullet.draw(g);
                 enemyBullet.collisionChecking(plane);
+                enemyBullet.proChecked(itemEfftive);
             }
 
             for (Explode explode : explodes) {
                 explode.draw(g);
             }
+            addItem();
+            for (Item item : items) {
+                item.draw(g);
+            }
+            for (ItemEffective effective : itemEfftive) {
+                effective.draw(g);
+            }
+
+            boss.draw(g);
+
 //        System.out.println(bulletList.size());
         }
 
     }
 
+    /**
+     * 生成道具
+     */
+
+    private void addItem(){
+        if (random.nextInt(1000) > 997) {
+            Item item = new Item(random.nextInt(440) + 20, random.nextInt(100));
+            items.add(item);
+        }
+    }
+
     private void init(){
+        DataStore.put("Plane",plane);
         //设置窗口尺寸
         setSize(FrameConstant.FRAME_WIDTH,FrameConstant.FRAME_HEIGHT);
 

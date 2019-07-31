@@ -6,9 +6,9 @@ import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.util.DataStore;
-import com.neuedu.util.ImageMap;
 
 import java.awt.*;
+import java.util.List;
 
 public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
 
@@ -64,6 +64,21 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
         if (plane.getRectangle().intersects(this.getRectangle())) {
             gameFrame.enemyBullets.remove(this);
             Plane.flagBlood = true;
+        }
+
+    }
+
+    /**
+     * 判断敌方子弹与己方飞机是否碰撞
+     * @param plane
+     */
+    public void proChecked(List<ItemEffective> itemEffective){
+        GameFrame gameFrame = DataStore.get("gameFrame");
+        for (ItemEffective effective : itemEffective) {
+            if (effective.getRectangle().intersects(this.getRectangle())) {
+                gameFrame.enemyBullets.remove(this);
+                gameFrame.itemEfftive.remove(effective);
+            }
         }
 
     }

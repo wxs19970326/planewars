@@ -57,7 +57,13 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
             if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
                 list.remove(enemyPlane);
                 gameFrame.bulletList.remove(this);
+
+                //如果打中则飞机能量条增加开关变为true
                 Plane.flagEnergy = true;
+                //打中后飞机加分开关变为true
+                Plane.isScore = true;
+
+                //打中则添加爆炸效果
                 Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY());
                 gameFrame.explodes.add(e);
             }
@@ -72,6 +78,6 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
         if (getY() < 40) {
             gameFrame.bulletList.remove(this);
         }
-        System.out.println(gameFrame.bulletList.size());
+//        System.out.println(gameFrame.bulletList.size());
     }
 }

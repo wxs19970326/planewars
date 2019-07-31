@@ -50,7 +50,7 @@ public class Skill extends BaseSprite implements Drawable, Moveable {
      */
     private void outOfBounds() {
         GameFrame gameFrame = DataStore.get("gameFrame");
-        if (getY() < 45 - image.getHeight(null)) {
+        if (getY() < 45) {
             gameFrame.skills.remove(this);
         }
     }
@@ -66,6 +66,9 @@ public class Skill extends BaseSprite implements Drawable, Moveable {
                 gameFrame.enemyPlanes.remove(enemyPlane);
                 Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY());
                 gameFrame.explodes.add(e);
+
+                //打中后飞机加分开关变为true
+                Plane.isScore = true;
             }
         }
     }
