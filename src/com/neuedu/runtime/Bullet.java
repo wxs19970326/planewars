@@ -6,16 +6,20 @@ import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.util.DataStore;
+import jdk.management.resource.internal.inst.RandomAccessFileRMHooks;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.List;
+import java.util.Random;
 
 public class Bullet extends BaseSprite implements Drawable, Moveable {
 
     private Image image;
     private int speed = FrameConstant.SPEED * 5;
+    private Random random = new Random();
 
     public Bullet() {
     }
@@ -55,7 +59,16 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
         GameFrame gameFrame = DataStore.get("gameFrame");
         for (EnemyPlane enemyPlane : list) {
             if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
-                list.remove(enemyPlane);
+                //击中敌方飞机后，敌机减血逻辑
+                enemyPlane.setHp(enemyPlane.getHp()-1);
+                if (enemyPlane.getHp() <= 0) {
+                    list.remove(enemyPlane);
+                    //打中则添加爆炸效果
+                    Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY(), 0);
+                    gameFrame.explodes.add(e);
+                }
+
+                //移除子弹
                 gameFrame.bulletList.remove(this);
 
                 //如果打中则飞机能量条增加开关变为true
@@ -63,9 +76,11 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
                 //打中后飞机加分开关变为true
                 Plane.isScore = true;
 
-                //打中则添加爆炸效果
-                Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY(), 9);
-                gameFrame.explodes.add(e);
+                if (enemyPlane.getType() == 1) {
+                        Item item = new Item(random.nextInt(440) + 20, random.nextInt(100));
+                        gameFrame.items.add(item);
+                }
+
             }
         }
     }

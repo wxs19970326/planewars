@@ -16,17 +16,12 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private boolean dir = false;
     private int timer;
     private Image[] image = {
-            ImageMap.get("boss1"),
-            ImageMap.get("boss2"),
-            ImageMap.get("boss3"),
-            ImageMap.get("boss4"),
-            ImageMap.get("boss5"),
-            ImageMap.get("boss6"),
-            ImageMap.get("boss7"),
-            ImageMap.get("boss8"),
-            ImageMap.get("boss9"),
+            ImageMap.get("boss1"), ImageMap.get("boss2"), ImageMap.get("boss3"),
+            ImageMap.get("boss4"), ImageMap.get("boss5"), ImageMap.get("boss6"),
+            ImageMap.get("boss7"), ImageMap.get("boss8"), ImageMap.get("boss9"),
     };
-    public static boolean isLive = true;
+    public static boolean isLive = false;
+    public static boolean isMove = true;
     private int blood = image[0].getWidth(null);
     public static boolean isBoold;
     private int count;
@@ -63,7 +58,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void move() {
-        if (isLive) {
+        if (isLive && isMove) {
             if (getY() <= 40) {
                 setY(getY() + speed);
             }else {
@@ -79,6 +74,8 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                     }
                 }
             }
+        }else {
+
         }
     }
 
@@ -98,6 +95,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             isBoold = false;
             if (blood <= 0) {
                 isLive = false;
+                isMove = false;
                 Explode explode = new Explode(getX(),getY(),9);
                 gameFrame.explodes.add(explode);
                 GameFrame.pass = true;

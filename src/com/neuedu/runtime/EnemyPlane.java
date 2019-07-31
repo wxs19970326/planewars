@@ -18,13 +18,19 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
             ImageMap.get("ep02"),
             ImageMap.get("ep03")
     };
+    //记录速度
     private int speed = FrameConstant.SPEED * 2;
     private double speedD;
+
+    //计数器
     private int count;
     private Random random = new Random();
 
     //记录敌机容器元素个数
     private int index;
+
+    //飞机血量
+    private int hp;
 
     //敌机类型
     private int type;
@@ -36,9 +42,58 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
         super(x, y);
         this.images = images;
         this.type = type;
+        init();
 
     }
 
+    /**
+     * 初始化不同飞机在己方飞机等级不同时的血量
+     */
+    private void init(){
+        if (type == 0) {
+            if (Plane.lv == 1) {
+                hp = 2;
+            } else if (Plane.lv == 2) {
+                hp = 4;
+            } else {
+                hp = 6;
+            }
+        } else if (type == 1) {
+            if (Plane.lv == 1) {
+                hp = 1;
+            } else if (Plane.lv == 2) {
+                hp = 2;
+            } else {
+                hp = 4;
+            }
+        } else {
+            if (Plane.lv == 1) {
+                hp = 4;
+            } else if (Plane.lv == 2) {
+                hp = 5;
+            } else {
+                hp = 6;
+            }
+        }
+
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    /**
+     * 敌机绘制方法
+     * @param g
+     */
     @Override
     public void draw(Graphics g) {
 
@@ -48,6 +103,9 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
         fire();
     }
 
+    /**
+     * 敌机移动方法
+     */
     @Override
     public void move() {
         if (type == 0) {
@@ -56,6 +114,10 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
             speedD = speedD + Math.PI * 6 / 180;
             setX(getX() + (int)(6 * Math.cos(speedD)));
             setY(getY() + speed * 3);
+        } else {
+            speedD = speedD + Math.PI * 6 / 180;
+            setX(getX() + (int)(6 * Math.cos(speedD)));
+            setY(getY() + speed);
         }
         outOfBounds();
     }
@@ -72,9 +134,11 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
     //创建敌机的方法
     public void creatPlane() {
         count++;
-        if (random.nextInt(100) > 95) {
+        if (random.nextInt(100) > 94) {
             type = 1;
-        }else {
+        }else if (random.nextInt(100) < 4){
+            type = 2;
+        } else {
             type = 0;
         }
         GameFrame gameFrame = DataStore.get("gameFrame");
@@ -126,11 +190,13 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
     public void collisionChecking(Plane plane) {
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (plane.getRectangle().intersects(this.getRectangle())) {
-            gameFrame.enemyPlanes.remove(this);
+            hp--;
+            if (hp <= 0) {
+                gameFrame.enemyPlanes.remove(this);
+            }
             Plane.flagBlood = true;
 
         }
     }
-
 
 }

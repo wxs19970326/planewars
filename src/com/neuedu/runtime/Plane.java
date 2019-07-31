@@ -31,7 +31,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 
     //飞机血量
     private int blood = ImageMap.get("my01").getWidth(null);
-    private int bloodFinally = ImageMap.get("my02").getWidth(null);
+    //己方飞机最终形态的血条
+//    private int bloodFinally = ImageMap.get("my02").getWidth(null);
     public static boolean flagBlood = false;
 
     //飞机技能能量条
@@ -40,7 +41,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     public static boolean flagEnergy;
 
     //飞机等级
-    private int lv = 1;
+    public static int lv = 1;
 
     //飞机得分
     private int score;
@@ -86,9 +87,10 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             g.fillRoundRect(getX(),getY() + image.getHeight(null),blood,10,5,5);
         }
         g.setColor(Color.white);
-        g.drawRoundRect(20, FrameConstant.FRAME_HEIGHT - 20,200,10,5,5);
+        g.drawString("能量:",20,108);
+        g.drawRoundRect(50, 102,50,7,5,5);
 //        g.setColor(Color.white);
-        g.fillRoundRect(20, FrameConstant.FRAME_HEIGHT - 20,energy,10,5,5);
+        g.fillRoundRect(50, 102,energy,7,5,5);
         move();
         setBlood();
         setEnergy();
@@ -165,7 +167,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             fire();
         }
         if (e.getKeyCode() == KeyEvent.VK_K){
-            if (energy == 200) {
+            if (energy == 50) {
                 skill();
                 energy = 0;
             }
@@ -268,8 +270,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      * 飞机能量条
      */
     private void setEnergy(){
-        if (flagEnergy && energy < 200) {
-            energy = energy + 10;
+        if (flagEnergy && energy < 50) {
+            energy = energy + 2;
             flagEnergy = false;
         }
     }

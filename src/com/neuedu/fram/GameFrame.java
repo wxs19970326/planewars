@@ -55,6 +55,11 @@ public class GameFrame extends Frame {
     public void paint(Graphics g) {
         bg.draw(g);
         if (!gameover) {
+            //遍历敌方飞机一一画出来
+            for (EnemyPlane enemyPlane : enemyPlanes) {
+                enemyPlane.draw(g);
+                enemyPlane.collisionChecking(plane);
+            }
 
             if (!Boss.isLive && !pass) {
                 enemyPlane.creatPlane();
@@ -78,11 +83,7 @@ public class GameFrame extends Frame {
                 skill.collisionChecking(enemyPlanes);
             }
 
-            //遍历敌方飞机一一画出来
-            for (EnemyPlane enemyPlane : enemyPlanes) {
-                enemyPlane.draw(g);
-                enemyPlane.collisionChecking(plane);
-            }
+
 
             //遍历敌方子弹一一画出来
             for (EnemyBullet enemyBullet : enemyBullets) {
@@ -94,7 +95,7 @@ public class GameFrame extends Frame {
             for (Explode explode : explodes) {
                 explode.draw(g);
             }
-            addItem();
+//            addItem();
             for (Item item : items) {
                 item.draw(g);
             }
@@ -113,12 +114,12 @@ public class GameFrame extends Frame {
      * 生成道具
      */
 
-    private void addItem(){
-        if (random.nextInt(1000) > 997) {
-            Item item = new Item(random.nextInt(440) + 20, random.nextInt(100));
-            items.add(item);
-        }
-    }
+//    private void addItem(){
+//        if (random.nextInt(1000) > 997) {
+//            Item item = new Item(random.nextInt(440) + 20, random.nextInt(100));
+//            items.add(item);
+//        }
+//    }
 
     private void init(){
         DataStore.put("Plane",plane);

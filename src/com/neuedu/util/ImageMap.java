@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class ImageMap {
 
-    public static final HashMap<String, Image> map = new HashMap<>();
+    private static final HashMap<String, Image> map = new HashMap<>();
 
     static {
         map.put("bg01",ImageUtil.getImage("com\\neuedu\\img\\bg\\bg01.jpg"));
