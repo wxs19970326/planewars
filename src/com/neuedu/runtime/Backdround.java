@@ -3,6 +3,7 @@ import com.neuedu.base.BaseSprite;
 import com.neuedu.base.Drawable;
 import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
+import com.neuedu.fram.GameFrame;
 import com.neuedu.util.ImageMap;
 import java.awt.Image;
 import java.awt.Graphics;
@@ -33,7 +34,9 @@ public class Backdround extends BaseSprite implements Drawable, Moveable {
     public void draw(Graphics g) {
         g.drawImage(image,getX(), getY(), image.getWidth(null) * 625 / 1000,
                 image.getHeight(null) * 625 / 1000,null);
-        move();
+        if (!GameFrame.gameover) {
+            move();
+        }
     }
 
     /**

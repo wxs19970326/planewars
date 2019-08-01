@@ -1,6 +1,7 @@
 package com.neuedu.fram;
 
 import com.neuedu.constant.FrameConstant;
+import com.neuedu.num.Start;
 import com.neuedu.runtime.*;
 import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
@@ -13,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameFrame extends Frame {
     //游戏开关
-    public static boolean gameover;
+    public static boolean gameover = true;
     //游戏胜利开关
     public static boolean pass;
 
@@ -24,6 +25,7 @@ public class GameFrame extends Frame {
     private Plane plane = new Plane();
     private EnemyPlane enemyPlane = new EnemyPlane();
     private Boss boss = new Boss();
+    private Slip slipBoss = new Slip(3);
 
     //存放子弹的集合
     public List<Bullet> bulletList = new CopyOnWriteArrayList<>();
@@ -46,6 +48,9 @@ public class GameFrame extends Frame {
     //存放道具效果
     public List<ItemEffective> itemEfftive = new CopyOnWriteArrayList<>();
 
+    //开场动画和开始打boss动画
+    public List<Start> starts = new CopyOnWriteArrayList<>();
+
 
     public GameFrame(){
         init();
@@ -54,6 +59,12 @@ public class GameFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         bg.draw(g);
+        if (gameover){
+            for (Start start : starts) {
+                start.draw(g);
+            }
+//            gameover = false;
+        }
         if (!gameover) {
             //遍历敌方飞机一一画出来
             for (EnemyPlane enemyPlane : enemyPlanes) {
@@ -61,9 +72,11 @@ public class GameFrame extends Frame {
                 enemyPlane.collisionChecking(plane);
             }
 
-            if (!Boss.isLive && !pass) {
+            if (!Boss.isLive) {
                 enemyPlane.creatPlane();
             } else if (Boss.isLive){
+
+                slipBoss.draw(g);
                 boss.draw(g);
             }
             plane.draw(g);
@@ -84,8 +97,6 @@ public class GameFrame extends Frame {
                 skill.colBossChecked(boss);
             }
 
-
-
             //遍历敌方子弹一一画出来
             for (EnemyBullet enemyBullet : enemyBullets) {
                 enemyBullet.draw(g);
@@ -104,11 +115,7 @@ public class GameFrame extends Frame {
                 effective.draw(g);
             }
 
-
-
-//        System.out.println(bulletList.size());
         }
-
     }
 
     /**
@@ -140,7 +147,9 @@ public class GameFrame extends Frame {
                 System.exit(0);
             }
         });
-
+        DataStore.put("boss",boss);
+        Start start = new Start();
+        starts.add(start);
 
         //刷新
         new Thread(){
@@ -169,6 +178,19 @@ public class GameFrame extends Frame {
             @Override
             public void keyReleased(KeyEvent e) {
                 plane.keyReleased(e);
+            }
+        });
+
+        /**
+         * 添加鼠标监听器
+         */
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                for (Start start1 : starts) {
+                    start1.mousePressed(e);
+                }
+
             }
         });
 

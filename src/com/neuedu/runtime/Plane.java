@@ -30,23 +30,27 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     private int speed = FrameConstant.SPEED * 4;
 
     //飞机血量
-    private int blood = ImageMap.get("my01").getWidth(null);
+    private int blood = 99;
     //己方飞机最终形态的血条
 //    private int bloodFinally = ImageMap.get("my02").getWidth(null);
     public static boolean flagBlood = false;
 
     //飞机技能能量条
-    private int energy;
+    private int energy = 99;
     //加能量条开关
     public static boolean flagEnergy;
 
     //飞机等级
-    public static int lv = 1;
+    public static int lv = 3;
 
     //飞机得分
     private int score;
     //加分开关
     public static boolean isScore;
+
+    //蓝条
+    private Slip slip = new Slip(2);
+    private Slip slip1 = new Slip(3);
 
 
 
@@ -63,6 +67,10 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         super(x, y);
         this.image = image;
         this.imageFinally = imageFinally;
+    }
+
+    public int getEnergy() {
+        return energy;
     }
 
     /**
@@ -83,20 +91,34 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             g.drawImage(image,getX(), getY(), image.getWidth(null),
                     image.getHeight(null),null);
             g.setColor(Color.red);
-            g.drawRoundRect(getX(),getY() + image.getHeight(null),image.getWidth(null),10,5,5);
-            g.fillRoundRect(getX(),getY() + image.getHeight(null),blood,10,5,5);
+//            g.drawRoundRect(getX(),getY() + image.getHeight(null),image.getWidth(null),10,5,5);
+//            g.fillRoundRect(getX(),getY() + image.getHeight(null),blood,10,5,5);
         }
+        g.setColor(new Color(177, 255, 102));
+        Font font = new Font("宋体",Font.LAYOUT_LEFT_TO_RIGHT,18);
+        g.setFont(font);
+
+
         g.setColor(Color.white);
-        g.drawString("能量:",20,108);
-        g.drawRoundRect(50, 102,50,7,5,5);
+        g.drawString("MP:",20,120);
+        g.drawString("HP:",20,140);
+//        g.drawString("Score:"+score,20, 142);
+//        slip.draw(g);
+//        slip1.draw(g);
+        g.drawRoundRect(50, 109,100,11,5,5);
+        g.drawRoundRect(50,128,100,11,5,5);
 //        g.setColor(Color.white);
-        g.fillRoundRect(50, 102,energy,7,5,5);
+        g.setColor(Color.blue);
+        g.fillRoundRect(51, 110,energy,10,5,5);
+
+        g.setColor(Color.red);
+        g.fillRoundRect(51,129,blood,10,5,5);
         move();
         setBlood();
         setEnergy();
         addScore();
-        g.drawString("得分为:"+score,20, 68);
-        g.drawString("当前等级:Lv"+lv,20, 88);
+
+//        g.drawString("当前等级:Lv"+lv,20, 118);
     }
 
     /**
@@ -167,7 +189,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             fire();
         }
         if (e.getKeyCode() == KeyEvent.VK_K){
-            if (energy == 50) {
+            if (energy == 80) {
                 skill();
                 energy = 0;
             }
@@ -270,7 +292,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      * 飞机能量条
      */
     private void setEnergy(){
-        if (flagEnergy && energy < 50) {
+        if (flagEnergy && energy < 80) {
             energy = energy + 1;
             flagEnergy = false;
         }

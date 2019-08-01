@@ -14,11 +14,14 @@ import java.util.List;
 public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
 
     private Image[] images = {
-            ImageMap.get("eb01")
+            ImageMap.get("eb01"),
+            ImageMap.get("eb02")
     };
     private int speed = FrameConstant.SPEED * 5;
 
     private int type;
+
+    private double speedD;
 
     public EnemyBullet() {
     }
@@ -27,6 +30,12 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
         super(x, y);
         this.type = type;
     }
+    public EnemyBullet(int x, int y, int type, double speedD) {
+        super(x, y);
+        this.type = type;
+        this.speedD = speedD;
+    }
+
 
     @Override
     public void draw(Graphics g) {
@@ -42,7 +51,8 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
         }
 
         if (type == 1) {
-
+            setX(getX() + (int)(3 / Math.cos(speedD)));
+            setY(getY() + (int)(3 / Math.sin(speedD)));
         }
 
         outOfBounds();

@@ -21,6 +21,7 @@ public class ImageMap {
         map.put("ep02",ImageUtil.getImage("com\\neuedu\\img\\plane\\ep02.png"));
         map.put("ep03",ImageUtil.getImage("com\\neuedu\\img\\plane\\ep03.png"));
         map.put("eb01",ImageUtil.getImage("com\\neuedu\\img\\bullet\\eb01.png"));
+        map.put("eb02",ImageUtil.getImage("com\\neuedu\\img\\bullet\\eb02.png"));
 
         map.put("1",ImageUtil.getImage("com\\neuedu\\img\\explode\\1.png"));
         map.put("2",ImageUtil.getImage("com\\neuedu\\img\\explode\\2.png"));
@@ -55,6 +56,24 @@ public class ImageMap {
         map.put("boss7",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_A_07.png"));
         map.put("boss8",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_A_08.png"));
         map.put("boss9",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_A_09.png"));
+        map.put("bossblood",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_blood.png"));
+        map.put("bossblood1",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_blood1.png"));
+//        map.put("bossblood2",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_blood1.png"));
+
+        /**
+         * 开始图
+         */
+
+        map.put("start3",ImageUtil.getImage("com\\neuedu\\img\\start\\start3.png"));
+        map.put("start4",ImageUtil.getImage("com\\neuedu\\img\\start\\start4.png"));
+        map.put("start5",ImageUtil.getImage("com\\neuedu\\img\\start\\start5.png"));
+        map.put("start6",ImageUtil.getImage("com\\neuedu\\img\\start\\start6.png"));
+
+
+        map.put("warning1",ImageUtil.getImage("com\\neuedu\\img\\num\\warning.png"));
+        map.put("warning2",ImageUtil.getImage("com\\neuedu\\img\\num\\warning1.png"));
+
+
 
     }
 
