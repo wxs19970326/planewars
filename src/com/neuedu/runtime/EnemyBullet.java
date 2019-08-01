@@ -6,13 +6,16 @@ import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.util.DataStore;
+import com.neuedu.util.ImageMap;
 
 import java.awt.*;
 import java.util.List;
 
 public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
 
-    private Image image;
+    private Image[] images = {
+            ImageMap.get("eb01")
+    };
     private int speed = FrameConstant.SPEED * 5;
 
     private int type;
@@ -20,16 +23,15 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
     public EnemyBullet() {
     }
 
-    public EnemyBullet(int x, int y, Image image, int type) {
+    public EnemyBullet(int x, int y, int type) {
         super(x, y);
-        this.image = image;
         this.type = type;
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(image,getX(), getY(), image.getWidth(null),
-                image.getHeight(null),null);
+        g.drawImage(images[type],getX(), getY(), images[type].getWidth(null),
+                images[type].getHeight(null),null);
         move();
     }
 
@@ -52,7 +54,7 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
      */
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(getX(), getY(), image.getWidth(null), image.getHeight(null));
+        return new Rectangle(getX(), getY(), images[type].getWidth(null), images[type].getHeight(null));
     }
 
     /**
@@ -60,7 +62,7 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
      */
     private void outOfBounds() {
         GameFrame gameFrame = DataStore.get("gameFrame");
-        if (getY() >FrameConstant.FRAME_HEIGHT - image.getHeight(null)) {
+        if (getY() >FrameConstant.FRAME_HEIGHT - images[type].getHeight(null)) {
             gameFrame.enemyBullets.remove(this);
         }
     }

@@ -250,7 +250,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (flagBlood) {
             if (lv != 4 && gameFrame.itemEfftive.size() == 0){
-                blood = blood - 4;
+                blood = blood - 5;
                 flagBlood = false;
             }
 //            if (lv == 4) {
@@ -271,7 +271,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      */
     private void setEnergy(){
         if (flagEnergy && energy < 50) {
-            energy = energy + 2;
+            energy = energy + 1;
             flagEnergy = false;
         }
     }
@@ -304,11 +304,22 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         for (Item item : list) {
             if (item.getRectangle().intersects(this.getRectangle())) {
                 list.remove(item);
-                if (gameFrame.itemEfftive.size() < 1){
-                    ItemEffective effective = new ItemEffective(getX(),getY());
-                    gameFrame.itemEfftive.add(effective);
+                //如果已经有保护罩道具效果，如果再吃道具就没有保护罩
+                if (item.getType() == 0) {
+                    if (gameFrame.itemEfftive.size() < 1){
+                        ItemEffective effective = new ItemEffective(getX(),getY());
+                        gameFrame.itemEfftive.add(effective);
+                    }
                 }
-                System.out.println( gameFrame.itemEfftive.size());
+
+                //加血道具实现加血效果
+                if (item.getType() == 1) {
+                    if (this.blood > ImageMap.get("my01").getWidth(null) - 4) {
+                        this.blood = ImageMap.get("my01").getWidth(null);
+                    } else {
+                        this.blood = blood + 5;
+                    }
+                }
             }
         }
     }

@@ -81,6 +81,7 @@ public class GameFrame extends Frame {
             for (Skill skill : skills) {
                 skill.draw(g);
                 skill.collisionChecking(enemyPlanes);
+                skill.colBossChecked(boss);
             }
 
 

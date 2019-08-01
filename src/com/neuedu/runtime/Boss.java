@@ -23,7 +23,11 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     public static boolean isLive = false;
     public static boolean isMove = true;
     private int blood = image[0].getWidth(null);
+    //子弹打中boss减血开关
     public static boolean isBoold;
+    public static boolean isBossBlood;
+    //boss减血计时器
+    private int timerBlood;
     private int count;
 
     public Boss() {
@@ -87,11 +91,14 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     /**
      *boss开枪
      */
+    private void fire(){
+
+    }
 
     private void setBoold(){
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (isBoold) {
-            blood = blood - 2;
+            blood = blood - 1;
             isBoold = false;
             if (blood <= 0) {
                 isLive = false;
@@ -99,6 +106,20 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                 Explode explode = new Explode(getX(),getY(),9);
                 gameFrame.explodes.add(explode);
                 GameFrame.pass = true;
+            }
+        }
+        if (isBossBlood) {
+            timerBlood++;
+            if (timerBlood == 5) {
+                blood = blood - 1;
+                isBossBlood = false;
+                timerBlood = 0;
+                if (blood <= 0) {
+                    isLive = false;
+                    isMove = false;
+                    Explode explode1 = new Explode(getX(),getY(),9);
+                    gameFrame.explodes.add(explode1);
+                }
             }
         }
     }
