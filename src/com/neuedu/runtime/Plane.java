@@ -41,16 +41,17 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     public static boolean flagEnergy;
 
     //飞机等级
-    public static int lv = 3;
+    public static int lv = 1;
 
     //飞机得分
     private int score;
     //加分开关
     public static boolean isScore;
 
-    //蓝条
-    private Slip slip = new Slip(2);
-    private Slip slip1 = new Slip(3);
+//    //蓝条
+//    private Slip slip = new Slip(2);
+//    private Slip slip1 = new Slip(3);
+
 
 
 
@@ -79,6 +80,10 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      */
     @Override
     public void draw(Graphics g) {
+        move();
+        setBlood();
+        setEnergy();
+        addScore();
 //        if (lv == 4){
 //            g.drawImage(imageFinally,getX(), getY(), imageFinally.getWidth(null),
 //                    imageFinally.getHeight(null),null);
@@ -100,23 +105,23 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 
 
         g.setColor(Color.white);
-        g.drawString("MP:",20,120);
-        g.drawString("HP:",20,140);
-//        g.drawString("Score:"+score,20, 142);
-//        slip.draw(g);
-//        slip1.draw(g);
-        g.drawRoundRect(50, 109,100,11,5,5);
-        g.drawRoundRect(50,128,100,11,5,5);
-//        g.setColor(Color.white);
-        g.setColor(Color.blue);
-        g.fillRoundRect(51, 110,energy,10,5,5);
+        /**
+         * MP和HP字符串
+         */
+        g.drawString("MP:",20,90);
+        g.drawString("HP:",20,110);
 
+        /**
+         * 蓝条和血条
+         */
+        g.drawRoundRect(50, 79,100,11,5,5);
+        g.drawRoundRect(50,98,100,11,5,5);
+        //蓝
+        g.setColor(Color.blue);
+        g.fillRoundRect(51, 80,energy,10,5,5);
+        //血
         g.setColor(Color.red);
-        g.fillRoundRect(51,129,blood,10,5,5);
-        move();
-        setBlood();
-        setEnergy();
-        addScore();
+        g.fillRoundRect(51,99,blood,10,5,5);
 
 //        g.drawString("当前等级:Lv"+lv,20, 118);
     }
@@ -189,7 +194,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             fire();
         }
         if (e.getKeyCode() == KeyEvent.VK_K){
-            if (energy == 80) {
+            if (energy == 99) {
                 skill();
                 energy = 0;
             }
@@ -292,8 +297,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      * 飞机能量条
      */
     private void setEnergy(){
-        if (flagEnergy && energy < 80) {
-            energy = energy + 1;
+        if (flagEnergy && energy < 99) {
+            energy = energy + 11;
             flagEnergy = false;
         }
     }

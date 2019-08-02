@@ -16,7 +16,7 @@ public class GameFrame extends Frame {
     //游戏开关
     public static boolean gameover = true;
     //游戏胜利开关
-    public static boolean pass;
+    public static boolean pass = false;
 
     private static Random random = new Random();
 
@@ -26,6 +26,8 @@ public class GameFrame extends Frame {
     private EnemyPlane enemyPlane = new EnemyPlane();
     private Boss boss = new Boss();
     private Slip slipBoss = new Slip(3);
+    private Slip slipScore = new Slip(4);
+    private Slip slipWin = new Slip(5);
 
     //存放子弹的集合
     public List<Bullet> bulletList = new CopyOnWriteArrayList<>();
@@ -51,6 +53,8 @@ public class GameFrame extends Frame {
     //开场动画和开始打boss动画
     public List<Start> starts = new CopyOnWriteArrayList<>();
 
+    public List<Slip> slips = new CopyOnWriteArrayList<>();
+
 
     public GameFrame(){
         init();
@@ -59,42 +63,71 @@ public class GameFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         bg.draw(g);
+
         if (gameover){
             for (Start start : starts) {
                 start.draw(g);
             }
-//            gameover = false;
+
+            /**
+             * 当游戏没开始时的画面是己方飞机和分数血条等
+             */
+            plane.draw(g);
+            //画分数
+            slipScore.draw(g);
         }
+
+
         if (!gameover) {
+            //若果boss没有存活并且通关状态为false,那么创建敌方飞机
+            if (!Boss.isLive && !pass) {
+                enemyPlane.creatPlane();
+            } else if (Boss.isLive && !pass){
+
+                //boss出场危险提示
+                slipBoss.draw(g);
+                //画boss
+                boss.draw(g);
+                for (Bullet bullet : bulletList) {
+                    bullet.colBossChecked(boss);
+                }
+                for (Skill skill : skills) {
+                    skill.colBossChecked(boss);
+                }
+
+            }
+
+            /**
+             * 如果boss死亡并且通关,移除boss
+             */
+            if (!Boss.isLive && pass) {
+                boss = null;
+            }
+
+
+
+
+
             //遍历敌方飞机一一画出来
             for (EnemyPlane enemyPlane : enemyPlanes) {
                 enemyPlane.draw(g);
                 enemyPlane.collisionChecking(plane);
             }
-
-            if (!Boss.isLive) {
-                enemyPlane.creatPlane();
-            } else if (Boss.isLive){
-
-                slipBoss.draw(g);
-                boss.draw(g);
-            }
             plane.draw(g);
             plane.collisionChecking(items);
 
-//            System.out.println(bulletList.size());
             //遍历子弹容器一一画出来
             for (Bullet bullet : bulletList) {
                 bullet.draw(g);
                 bullet.collisionChecking(enemyPlanes);
-                bullet.colBossChecked(boss);
+//                bullet.colBossChecked(boss);
             }
 
             //遍历技能集合一一画出来
             for (Skill skill : skills) {
                 skill.draw(g);
                 skill.collisionChecking(enemyPlanes);
-                skill.colBossChecked(boss);
+//                skill.colBossChecked(boss);
             }
 
             //遍历敌方子弹一一画出来
@@ -104,10 +137,11 @@ public class GameFrame extends Frame {
                 enemyBullet.proChecked(itemEfftive);
             }
 
+            //画爆炸
             for (Explode explode : explodes) {
                 explode.draw(g);
             }
-//            addItem();
+
             for (Item item : items) {
                 item.draw(g);
             }
@@ -115,6 +149,21 @@ public class GameFrame extends Frame {
                 effective.draw(g);
             }
 
+//            for (Slip slip : slips) {
+//                slip.draw(g);
+//            }
+            //通关效果
+            for (Slip slip : slips) {
+                slip.draw(g);
+            }
+            //画分数
+            slipScore.draw(g);
+
+        } else {
+
+            plane.draw(g);
+            //画分数
+            slipScore.draw(g);
         }
     }
 

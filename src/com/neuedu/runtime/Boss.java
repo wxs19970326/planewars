@@ -22,11 +22,12 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             ImageMap.get("boss4"), ImageMap.get("boss5"), ImageMap.get("boss6"),
             ImageMap.get("boss7"), ImageMap.get("boss8"), ImageMap.get("boss9"),
     };
-    public static boolean isLive = true;
+    public static boolean isLive = false;
     public static boolean isMove = true;
     private int blood = FrameConstant.FRAME_WIDTH - 30;
     //子弹打中boss减血开关
     public static boolean isBoold;
+    //技能打中boss减血开关
     public static boolean isBossBlood;
     //boss减血计时器
     private int timerBlood;
@@ -66,8 +67,8 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 //            g.drawRoundRect(105,55,image[count].getWidth(null),20,5,5);
 //            g.fillRoundRect(105,55,blood,20,5,5);
 //            g.fillRoundRect(8, 42,blood,28,20,20);
-//            slip1.draw(g);
-//            slip.draw(g);
+            slip1.draw(g);
+            slip.draw(g);
         }
         if (timer == 2) {
             count++;
@@ -134,17 +135,29 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     private void setBoold(){
         GameFrame gameFrame = DataStore.get("gameFrame");
+//        if (blood <= 0) {
+//            Explode explode = new Explode(getX(),getY(),9);
+//            gameFrame.explodes.add(explode);
+//            for (int i = 0; i < 35; i++) {
+//
+//            }
+//            Explode explode1 = new Explode(getX(),getY(),9);
+//            gameFrame.explodes.add(explode1);
+//        }
+        //子弹打中boss
         if (isBoold) {
-            blood = blood - 1;
+            blood = blood - 3;
             isBoold = false;
             if (blood <= 0) {
-                isLive = false;
+//                isLive = false;
                 isMove = false;
                 Explode explode = new Explode(getX(),getY(),9);
                 gameFrame.explodes.add(explode);
-                GameFrame.pass = true;
+
             }
         }
+
+        //技能打中boss
         if (isBossBlood) {
             timerBlood++;
             if (timerBlood == 5) {
@@ -152,7 +165,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                 isBossBlood = false;
                 timerBlood = 0;
                 if (blood <= 0) {
-                    isLive = false;
+//                    isLive = false;
                     isMove = false;
                     Explode explode1 = new Explode(getX(),getY(),9);
                     gameFrame.explodes.add(explode1);

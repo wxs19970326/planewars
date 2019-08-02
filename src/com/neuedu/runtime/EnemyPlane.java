@@ -133,27 +133,29 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
 
     //创建敌机的方法
     public void creatPlane() {
-        count++;
-        if (random.nextInt(100) > 94) {
-            type = 1;
-        }else if (random.nextInt(100) < 4){
-            type = 2;
-        } else {
-            type = 0;
-        }
-        GameFrame gameFrame = DataStore.get("gameFrame");
-        int round = random.nextInt(FrameConstant.FRAME_WIDTH);
-        if (count == 40 && index <= 20) {
-            if (round <= FrameConstant.FRAME_WIDTH - ImageMap.get("ep01").getWidth(null)) {
-                gameFrame.enemyPlanes.add(new EnemyPlane(
-                        round,
-                        -new Random().nextInt(100) * 2,
-                        images,
-                        type
-                ));
+        if (!GameFrame.pass) {
+            count++;
+            if (random.nextInt(100) > 94) {
+                type = 1;
+            }else if (random.nextInt(100) < 4){
+                type = 2;
+            } else {
+                type = 0;
             }
-            index = gameFrame.enemyPlanes.size();
-            count = 0;
+            GameFrame gameFrame = DataStore.get("gameFrame");
+            int round = random.nextInt(FrameConstant.FRAME_WIDTH);
+            if (count == 40 && index <= 20) {
+                if (round <= FrameConstant.FRAME_WIDTH - ImageMap.get("ep01").getWidth(null)) {
+                    gameFrame.enemyPlanes.add(new EnemyPlane(
+                            round,
+                            -new Random().nextInt(100) * 2,
+                            images,
+                            type
+                    ));
+                }
+                index = gameFrame.enemyPlanes.size();
+                count = 0;
+            }
         }
     }
 

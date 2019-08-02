@@ -73,7 +73,27 @@ public class ImageMap {
         map.put("warning1",ImageUtil.getImage("com\\neuedu\\img\\num\\warning.png"));
         map.put("warning2",ImageUtil.getImage("com\\neuedu\\img\\num\\warning1.png"));
 
+        map.put("score0",ImageUtil.getImage("com\\neuedu\\img\\score\\0.png"));
+        map.put("score1",ImageUtil.getImage("com\\neuedu\\img\\score\\1.png"));
+        map.put("score2",ImageUtil.getImage("com\\neuedu\\img\\score\\2.png"));
 
+        /**
+         * win
+         */
+        map.put("win1",ImageUtil.getImage("com\\neuedu\\img\\win\\0.png"));
+        map.put("win2",ImageUtil.getImage("com\\neuedu\\img\\win\\1.png"));
+        map.put("win4",ImageUtil.getImage("com\\neuedu\\img\\win\\3.png"));
+        map.put("win5",ImageUtil.getImage("com\\neuedu\\img\\win\\4.png"));
+        map.put("win6",ImageUtil.getImage("com\\neuedu\\img\\win\\5.png"));
+        map.put("win7",ImageUtil.getImage("com\\neuedu\\img\\win\\6.png"));
+        map.put("win8",ImageUtil.getImage("com\\neuedu\\img\\win\\7.png"));
+        map.put("win9",ImageUtil.getImage("com\\neuedu\\img\\win\\8.png"));
+        map.put("win10",ImageUtil.getImage("com\\neuedu\\img\\win\\9.png"));
+        map.put("win11",ImageUtil.getImage("com\\neuedu\\img\\win\\10.png"));
+        map.put("win12",ImageUtil.getImage("com\\neuedu\\img\\win\\11.png"));
+        map.put("win13",ImageUtil.getImage("com\\neuedu\\img\\win\\12.png"));
+        map.put("win14",ImageUtil.getImage("com\\neuedu\\img\\win\\13.png"));
+        map.put("win15",ImageUtil.getImage("com\\neuedu\\img\\win\\14.png"));
 
     }
 

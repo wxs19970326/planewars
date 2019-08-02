@@ -34,6 +34,7 @@ public class Explode extends BaseSprite implements Drawable {
     @Override
     public void draw(Graphics g) {
 
+        //普通敌机爆炸效果逻辑
         if (type == 0) {
             if (step >= 9) {
                 isLive = false;
@@ -50,15 +51,16 @@ public class Explode extends BaseSprite implements Drawable {
                 gameFrame.explodes.remove(this);
             }
         }
+
+        //boss爆炸效果逻辑
         if (type == 9) {
             timer++;
             if (step >= 9) {
                 bossExplode = false;
             }
-            System.out.println(step);
 
             if (bossExplode) {
-                g.drawImage(images[step + type],getX(), getY(), images[step + type].getWidth(null),
+                g.drawImage(images[step + type],getX() + 20, getY() + 20, images[step + type].getWidth(null),
                         images[step + type].getHeight(null),null);
                 if (timer == 20) {
                     step++;
@@ -67,8 +69,21 @@ public class Explode extends BaseSprite implements Drawable {
             }
 
             if (!bossExplode) {
+
+                //通关
+                GameFrame.pass = true;
+                //boss死亡
+                Boss.isLive = false;
                 GameFrame gameFrame = DataStore.get("gameFrame");
                 gameFrame.explodes.remove(this);
+
+
+                //爆炸完成win
+                if (gameFrame.slips.size() <= 1) {
+                    Slip slip = new Slip(5);
+                    gameFrame.slips.add(slip);
+                }
+
             }
         }
 

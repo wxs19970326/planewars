@@ -110,12 +110,12 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
         if (boss.getRectangle().intersects(this.getRectangle())) {
             gameFrame.bulletList.remove(this);
             Boss.isBoold = true;
-            timer++;
-            if (timer == 5) {
+//            timer++;
+//            if (timer == 5) {
                 //如果打中则boss能量条增加开关变为true
                 Plane.flagEnergy = true;
-                timer = 0;
-            }
+//                timer = 0;
+//            }
         }
     }
 
