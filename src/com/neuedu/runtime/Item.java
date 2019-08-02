@@ -22,9 +22,25 @@ public class Item extends BaseSprite implements Drawable, Moveable {
     //道具类型
     private int type;
 
+    //保护罩计步器
+    private int stepPro;
+
+    //加血道具计步器
+    private int stepBlood;
+
     private Image[] images = {
             ImageMap.get("item01"),
-            ImageMap.get("blood1")
+            ImageMap.get("item02"),
+            ImageMap.get("item03"),
+            ImageMap.get("item04")
+
+    };
+
+    private Image[] imagesBloods = {
+            ImageMap.get("blood1"),
+            ImageMap.get("blood2"),
+            ImageMap.get("blood3"),
+            ImageMap.get("blood4")
     };
 
     public Item() {
@@ -41,8 +57,22 @@ public class Item extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(images[type],getX(), getY(), images[type].getWidth(null),
-                images[type].getHeight(null),null);
+        if (type == 0) {
+            g.drawImage(images[stepPro / 25],getX(), getY(), images[stepPro / 25].getWidth(null),
+                    images[stepPro / 25].getHeight(null),null);
+            stepPro++;
+            if (stepPro == 75) {
+                stepPro = 0;
+            }
+        }
+        if (type == 1) {
+            g.drawImage(imagesBloods[stepBlood / 25],getX(), getY(), imagesBloods[stepBlood / 25].getWidth(null),
+                    imagesBloods[stepBlood / 25].getHeight(null),null);
+            stepBlood++;
+            if (stepBlood == 75) {
+                stepBlood = 0;
+            }
+        }
         move();
     }
 
@@ -54,14 +84,20 @@ public class Item extends BaseSprite implements Drawable, Moveable {
         if (type == 1) {
             speedD = speedD + Math.PI * 6 / 180;
             setX(getX() + (int)(3 * Math.cos(speedD)));
-            setY(getY() + 3);
+            setY(getY() + 2);
         }
         outOfBounds();
     }
 
     @Override
     public Rectangle getRectangle() {
-        return new Rectangle(getX(), getY(), images[type].getWidth(null), images[type].getHeight(null));
+        if (type == 0) {
+            return new Rectangle(getX(), getY(), images[type].getWidth(null), images[type].getHeight(null));
+        }
+        if (type == 1) {
+            return new Rectangle(getX(), getY(), imagesBloods[type].getWidth(null), imagesBloods[type].getHeight(null));
+        }
+        return null;
     }
 
     /**

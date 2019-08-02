@@ -5,6 +5,7 @@ import com.neuedu.base.Drawable;
 import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
+import com.neuedu.num.GameOver;
 import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
 
@@ -30,7 +31,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     private int speed = FrameConstant.SPEED * 4;
 
     //飞机血量
-    private int blood = 99;
+    public static int blood = 99;
     //己方飞机最终形态的血条
 //    private int bloodFinally = ImageMap.get("my02").getWidth(null);
     public static boolean flagBlood = false;
@@ -74,13 +75,19 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         return energy;
     }
 
+    public int getBlood() {
+        return blood;
+    }
+
     /**
      * 绘制飞机的方法
      * @param g
      */
     @Override
     public void draw(Graphics g) {
-        move();
+        if (blood >= 0) {
+            move();
+        }
         setBlood();
         setEnergy();
         addScore();
@@ -191,11 +198,15 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             down = false;
         }
         if (e.getKeyCode() == KeyEvent.VK_J){
-            fire();
+            if (blood >= 0) {
+                fire();
+            }
         }
         if (e.getKeyCode() == KeyEvent.VK_K){
             if (energy == 99) {
-                skill();
+                if (blood >= 0) {
+                    skill();
+                }
                 energy = 0;
             }
 
@@ -286,6 +297,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 //            }
             if (blood <= 0 && lv != 4) {
                 GameFrame.gameover = true;
+                GameOver gameOver = new GameOver();
+                gameFrame.gameOvers.add(gameOver);
             }
 //            if (bloodFinally <= 0 && lv == 4) {
 //                GameFrame.gameover = true;

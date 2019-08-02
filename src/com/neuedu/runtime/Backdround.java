@@ -52,7 +52,7 @@ public class Backdround extends BaseSprite implements Drawable, Moveable {
         if (getY() >= 40) {
             Boss.isLive = true;
         } else {
-            setY(getY() + FrameConstant.SPEED * 10);
+            setY(getY() + FrameConstant.SPEED);
         }
 
     }

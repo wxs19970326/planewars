@@ -121,12 +121,12 @@ public class Slip extends BaseSprite implements Drawable {
                         FrameConstant.FRAME_HEIGHT / 2 - imageWin[step / 15].getHeight(null) / 2, imageWin[winStep / 15].getWidth(null),
                         imageWin[winStep / 15].getHeight(null), null);
                 winStep++;
-                if (winStep == 195) {
+                if (winStep == 210) {
                     winStep = 0;
                 }
                 winTimer++;
             }
-            if (winTimer == 195) {
+            if (winTimer >= 210) {
                 winFlag = false;
             }
 
@@ -137,7 +137,6 @@ public class Slip extends BaseSprite implements Drawable {
                         FrameConstant.FRAME_HEIGHT / 2 - imageWin[13].getHeight(null) / 2, imageWin[13].getWidth(null),
                         imageWin[13].getHeight(null), null);
             }
-
         }
 
     }

@@ -1,6 +1,7 @@
 package com.neuedu.fram;
 
 import com.neuedu.constant.FrameConstant;
+import com.neuedu.num.GameOver;
 import com.neuedu.num.Start;
 import com.neuedu.runtime.*;
 import com.neuedu.util.DataStore;
@@ -22,12 +23,17 @@ public class GameFrame extends Frame {
 
     //背景
     private Backdround bg = new Backdround();
+    //己方飞机
     private Plane plane = new Plane();
+    //敌方飞机
     private EnemyPlane enemyPlane = new EnemyPlane();
+    //boss
     private Boss boss = new Boss();
+    //boss血条
     private Slip slipBoss = new Slip(3);
     private Slip slipScore = new Slip(4);
-    private Slip slipWin = new Slip(5);
+
+//    private Slip slipWin = new Slip(5);
 
     //存放子弹的集合
     public List<Bullet> bulletList = new CopyOnWriteArrayList<>();
@@ -52,8 +58,11 @@ public class GameFrame extends Frame {
 
     //开场动画和开始打boss动画
     public List<Start> starts = new CopyOnWriteArrayList<>();
-
+    //
     public List<Slip> slips = new CopyOnWriteArrayList<>();
+
+    //游戏结束动画
+    public List<GameOver> gameOvers = new CopyOnWriteArrayList<>();
 
 
     public GameFrame(){
@@ -75,6 +84,11 @@ public class GameFrame extends Frame {
             plane.draw(g);
             //画分数
             slipScore.draw(g);
+            if (Plane.blood <= 0) {
+                for (GameOver gameOver : gameOvers) {
+                    gameOver.draw(g);
+                }
+            }
         }
 
 
@@ -161,9 +175,11 @@ public class GameFrame extends Frame {
 
         } else {
 
-            plane.draw(g);
-            //画分数
-            slipScore.draw(g);
+            if (Plane.blood >= 0) {
+                plane.draw(g);
+                //画分数
+                slipScore.draw(g);
+            }
         }
     }
 
@@ -233,15 +249,15 @@ public class GameFrame extends Frame {
         /**
          * 添加鼠标监听器
          */
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                for (Start start1 : starts) {
-                    start1.mousePressed(e);
-                }
-
-            }
-        });
+//        addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                for (Start start1 : starts) {
+//                    start1.mousePressed(e);
+//                }
+//
+//            }
+//        });
 
         setVisible(true);
     }
