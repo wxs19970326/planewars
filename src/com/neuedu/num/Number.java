@@ -50,24 +50,14 @@ public class Number extends BaseSprite implements Drawable {
         shi = score / 10 % 10;
         bai = score / 100 % 10;
         qian = score / 1000;
-        g.drawImage(images[qian],FrameConstant.FRAME_WIDTH - 120, 82, images[qian].getWidth(null),
+        g.drawImage(images[qian],FrameConstant.FRAME_WIDTH - 150, 77, images[qian].getWidth(null),
                 images[qian].getHeight(null),null);
-        g.drawImage(images[bai],FrameConstant.FRAME_WIDTH - 96, 82, images[bai].getWidth(null),
+        g.drawImage(images[bai],FrameConstant.FRAME_WIDTH - 116 + 5 - 10, 77, images[bai].getWidth(null),
                 images[bai].getHeight(null),null);
-        g.drawImage(images[shi],FrameConstant.FRAME_WIDTH - 72, 82, images[shi].getWidth(null),
+        g.drawImage(images[shi],FrameConstant.FRAME_WIDTH - 92 + 10 - 10, 77, images[shi].getWidth(null),
                 images[shi].getHeight(null),null);
-        g.drawImage(images[ge],FrameConstant.FRAME_WIDTH - 48, 82, images[ge].getWidth(null),
+        g.drawImage(images[ge],FrameConstant.FRAME_WIDTH - 68 + 15 - 10, 77, images[ge].getWidth(null),
                 images[ge].getHeight(null),null);
 
-        if (GameFrame.gameover && boss.getBlood() <= 0) {
-            //        g.drawImage(images[qian],102, 120, images[qian].getWidth(null),
-//                images[qian].getHeight(null),null);
-            g.drawImage(images[bai],97, 120, images[bai].getWidth(null),
-                    images[bai].getHeight(null),null);
-            g.drawImage(images[shi],117, 120, images[shi].getWidth(null),
-                    images[shi].getHeight(null),null);
-            g.drawImage(images[ge],137, 120, images[ge].getWidth(null),
-                    images[ge].getHeight(null),null);
-        }
     }
 }

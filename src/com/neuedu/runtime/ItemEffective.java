@@ -26,7 +26,7 @@ public class ItemEffective extends BaseSprite implements Drawable, Moveable {
     @Override
     public void draw(Graphics g) {
         Plane plane = DataStore.get("Plane");
-        g.drawImage(images[0], plane.getX() - 18, plane.getY() - 30, plane.getImage().getHeight(null) * 2,
+        g.drawImage(images[0], plane.getX() - 16, plane.getY() - 35, plane.getImage().getHeight(null) * 2,
                 plane.getImage().getHeight(null) * 2,null);
     }
 

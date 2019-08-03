@@ -77,11 +77,11 @@ public class Slip extends BaseSprite implements Drawable {
         Boss boss = DataStore.get("boss");
         //type=0和type=1,画boss血条
         if (type == 0) {
-            g.drawImage(images[type],10, 40, FrameConstant.FRAME_WIDTH - 20,
+            g.drawImage(images[type],10, 43, FrameConstant.FRAME_WIDTH - 20,
                     32,null);
         }
         if (type == 1) {
-            g.drawImage(images[type],15, 40, boss.getBlood(),
+            g.drawImage(images[type],15, 43, boss.getBlood(),
                     30,null);
         }
 //        if (type == 2) {
@@ -107,14 +107,14 @@ public class Slip extends BaseSprite implements Drawable {
 
         //分数标志
         if (type == 4) {
-//            g.drawImage(imageScoer[scoreStep / 12],FrameConstant.FRAME_WIDTH / 2 - imageScoer[scoreStep / 12].getWidth(null), FrameConstant.FRAME_HEIGHT / 2 - imageScoer[scoreStep / 12].getHeight(null) / 2, imageScoer[scoreStep / 12].getWidth(null) * 2,
-//                    imageScoer[scoreStep / 12].getHeight(null) * 2,null);
+//            g.drawImage(imageScoer[scoreStep / 12],FrameConstant.FRAME_WIDTH / 2 - imageScoer[scoreStep / 12].getWidth(null), FrameConstant.FRAME_HEIGHT / 2 - imageScoer[scoreStep / 12].getHeight(null) / 2, imageScoer[scoreStep / 12].getWidth(null),
+//                    imageScoer[scoreStep / 12].getHeight(null),null);
 //            scoreStep++;
 //            if (scoreStep == 36) {
 //                scoreStep = 0;
 //            }
 
-            g.drawImage(imageScoer[3], FrameConstant.FRAME_WIDTH - 140, 73, 133, 45,null);
+//            g.drawImage(imageScoer[3], FrameConstant.FRAME_WIDTH - 140, 73, 133, 45,null);
         }
 
         //胜利动画

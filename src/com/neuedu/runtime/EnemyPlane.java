@@ -35,6 +35,9 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
     //敌机类型
     private int type;
 
+    private boolean right;
+//    private boolean left;
+
     public EnemyPlane() {
     }
 
@@ -112,12 +115,22 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
             setY(getY() + speed);
         } else if (type == 1){
             speedD = speedD + Math.PI * 6 / 180;
-            setX(getX() + (int)(5 * Math.cos(speedD)));
+            setX(getX() + (int)(6 * Math.cos(speedD)));
             setY(getY() + speed * 2);
         } else {
-            speedD = speedD + Math.PI * 6 / 180;
-            setX(getX() + (int)(5 * Math.cos(speedD)));
-            setY(getY() + speed);
+//            speedD = speedD + Math.PI * 6 / 180;
+//            setX(getX() + (int)(3 * Math.cos(speedD)));
+//            setY(getY() + speed);
+            if (!right) {
+                setX(getX() - speed);
+                if (getX() <= 0) {
+                    right = true;
+                }
+            }
+            if (right) {
+                setX(getX() + speed);
+            }
+            setY(getY() + speed * 2);
         }
         outOfBounds();
     }
@@ -135,17 +148,17 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
     public void creatPlane() {
         if (!GameFrame.pass) {
             count++;
-            if (random.nextInt(100) > 94) {
+            if (random.nextInt(100) > 80) {
                 type = 1;
-            }else if (random.nextInt(100) < 4){
+            }else if (random.nextInt(100) < 13){
                 type = 2;
             } else {
                 type = 0;
             }
             GameFrame gameFrame = DataStore.get("gameFrame");
             int round = random.nextInt(FrameConstant.FRAME_WIDTH);
-            if (count == 40 && index <= 20) {
-                if (round <= FrameConstant.FRAME_WIDTH - ImageMap.get("ep01").getWidth(null)) {
+            if (count == 30 && index <= 30) {
+                if (round <= FrameConstant.FRAME_WIDTH - ImageMap.get("ep03").getWidth(null) && round >= 50) {
                     gameFrame.enemyPlanes.add(new EnemyPlane(
                             round,
                             -new Random().nextInt(100) * 2,

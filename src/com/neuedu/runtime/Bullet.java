@@ -6,6 +6,7 @@ import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.util.DataStore;
+import com.neuedu.util.ImageMap;
 
 import java.awt.Image;
 import java.awt.Graphics;
@@ -66,12 +67,12 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
                     Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY(), 0);
                     gameFrame.explodes.add(e);
                     //敌机类型为1则生成保护罩道具
-                    if (enemyPlane.getType() == 1) {
+                    if (enemyPlane.getType() == 1 && random.nextInt(60) > 50) {
                         Item item = new Item(random.nextInt(440) + 20, random.nextInt(100),0);
                         gameFrame.items.add(item);
                     }
                     //敌机类型为2则生成加血道具
-                    if (enemyPlane.getType() == 2) {
+                    if (enemyPlane.getType() == 2 && random.nextInt(60) > 40) {
                         Item itemBlood = new Item(enemyPlane.getX(),enemyPlane.getY(),1);
                         gameFrame.items.add(itemBlood);
                     }
@@ -117,6 +118,10 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
                 Plane.isScore = true;
 //                timer = 0;
 //            }
+            if (random.nextInt(1000) > 985) {
+                Item itemBlood = new Item(boss.getX() + ImageMap.get("boss1").getWidth(null) / 2,boss.getY() + ImageMap.get("boss1").getHeight(null),1);
+                gameFrame.items.add(itemBlood);
+            }
         }
     }
 

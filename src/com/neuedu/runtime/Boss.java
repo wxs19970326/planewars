@@ -39,6 +39,12 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private Slip slip = new Slip(0);
     private Slip slip1 = new Slip(1);
 
+    //boss运动方向
+    private boolean right;
+    private boolean up;
+
+    private int step;
+
     public Boss() {
         this(
                 FrameConstant.FRAME_WIDTH / 2 - ImageMap.get("boss1").getWidth(null) / 2,
@@ -90,20 +96,22 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
             if (getY() <= 70) {
                 setY(getY() + speed);
             }else {
-                if (!dir) {
-                    setX(getX() - speed);
-                    if (getX() <= 0) {
-                        dir = true;
-                    }
-                } else {
-                    setX(getX() + speed);
-                    if (getX() >= FrameConstant.FRAME_WIDTH - image[0].getWidth(null)){
-                        dir = false;
+                if (getY() <= 70) {
+                    setY(getY() + speed);
+                }else {
+                    if (!dir) {
+                        setX(getX() - speed);
+                        if (getX() <= 0) {
+                            dir = true;
+                        }
+                    } else {
+                        setX(getX() + speed);
+                        if (getX() >= FrameConstant.FRAME_WIDTH - image[0].getWidth(null)){
+                            dir = false;
+                        }
                     }
                 }
             }
-        }else {
-
         }
     }
 
@@ -118,7 +126,9 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private void fire(){
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (getY() >= 70) {
-            if (random.nextInt(100) > 80) {
+            step++;
+            if (step == 2) {
+                step = 0;
                 speedD = speedD + Math.PI / 4;
                 EnemyBullet enemyBullet = new EnemyBullet(
                         getX() + (image[0].getWidth(null) / 2) + (int)(image[1].getWidth(null) / 2 * Math.cos(speedD)),

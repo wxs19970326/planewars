@@ -13,16 +13,36 @@ public class ImageMap {
         map.put("my01",ImageUtil.getImage("com\\neuedu\\img\\plane\\my_01.png"));
         map.put("my02",ImageUtil.getImage("com\\neuedu\\img\\plane\\myplane01.png"));
 
+        /**
+         * m、h、p
+         */
+        map.put("m",ImageUtil.getImage("com\\neuedu\\img\\plane\\m.png"));
+        map.put("h",ImageUtil.getImage("com\\neuedu\\img\\plane\\h.png"));
+        map.put("p",ImageUtil.getImage("com\\neuedu\\img\\plane\\p.png"));
+
+        /**
+         * 己方子弹
+         */
         map.put("mb01",ImageUtil.getImage("com\\neuedu\\img\\bullet\\mb01.png"));
 
+        /**
+         * 技能
+         */
         map.put("skill01",ImageUtil.getImage("com\\neuedu\\img\\bullet\\skill.png"));
 
+        /**
+         *敌方飞机
+         */
         map.put("ep01",ImageUtil.getImage("com\\neuedu\\img\\plane\\ep01.png"));
         map.put("ep02",ImageUtil.getImage("com\\neuedu\\img\\plane\\ep02.png"));
         map.put("ep03",ImageUtil.getImage("com\\neuedu\\img\\plane\\ep03.png"));
         map.put("eb01",ImageUtil.getImage("com\\neuedu\\img\\bullet\\eb01.png"));
         map.put("eb02",ImageUtil.getImage("com\\neuedu\\img\\bullet\\eb02.png"));
+        map.put("eb03",ImageUtil.getImage("com\\neuedu\\img\\bullet\\eb03.png"));
 
+        /**
+         * boss爆炸
+         */
         map.put("1",ImageUtil.getImage("com\\neuedu\\img\\explode\\1.png"));
         map.put("2",ImageUtil.getImage("com\\neuedu\\img\\explode\\2.png"));
         map.put("3",ImageUtil.getImage("com\\neuedu\\img\\explode\\3.png"));
@@ -33,6 +53,9 @@ public class ImageMap {
         map.put("8",ImageUtil.getImage("com\\neuedu\\img\\explode\\8.png"));
         map.put("9",ImageUtil.getImage("com\\neuedu\\img\\explode\\9.png"));
 
+        /**
+         * 敌机爆炸
+         */
         map.put("e1",ImageUtil.getImage("com\\neuedu\\img\\explode\\e1.png"));
         map.put("e2",ImageUtil.getImage("com\\neuedu\\img\\explode\\e2.png"));
         map.put("e3",ImageUtil.getImage("com\\neuedu\\img\\explode\\e3.png"));
@@ -71,7 +94,6 @@ public class ImageMap {
         map.put("boss9",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_A_09.png"));
         map.put("bossblood",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_blood.png"));
         map.put("bossblood1",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_blood1.png"));
-//        map.put("bossblood2",ImageUtil.getImage("com\\neuedu\\img\\boss\\boss_blood1.png"));
 
         /**
          * 开始图
@@ -150,16 +172,16 @@ public class ImageMap {
         /**
          * score
          */
-        map.put("00",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_0.png"));
-        map.put("01",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_1.png"));
-        map.put("02",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_2.png"));
-        map.put("03",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_3.png"));
-        map.put("04",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_4.png"));
-        map.put("05",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_5.png"));
-        map.put("06",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_6.png"));
-        map.put("07",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_7.png"));
-        map.put("08",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_8.png"));
-        map.put("09",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_9.png"));
+        map.put("00",ImageUtil.getImage("com\\neuedu\\img\\num\\0.png"));
+        map.put("01",ImageUtil.getImage("com\\neuedu\\img\\num\\1.png"));
+        map.put("02",ImageUtil.getImage("com\\neuedu\\img\\num\\2.png"));
+        map.put("03",ImageUtil.getImage("com\\neuedu\\img\\num\\3.png"));
+        map.put("04",ImageUtil.getImage("com\\neuedu\\img\\num\\4.png"));
+        map.put("05",ImageUtil.getImage("com\\neuedu\\img\\num\\5.png"));
+        map.put("06",ImageUtil.getImage("com\\neuedu\\img\\num\\6.png"));
+        map.put("07",ImageUtil.getImage("com\\neuedu\\img\\num\\7.png"));
+        map.put("08",ImageUtil.getImage("com\\neuedu\\img\\num\\8.png"));
+        map.put("09",ImageUtil.getImage("com\\neuedu\\img\\num\\9.png"));
 
         /**
          * 升级效果图

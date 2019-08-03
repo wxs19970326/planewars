@@ -20,13 +20,17 @@ public class Start extends BaseSprite implements Drawable {
             ImageMap.get("start6")
     };
 
-
     private boolean flag = true;
     private int step;
+    private int type;
 
     public Start(int x, int y, Image[] images) {
         super(x, y);
         this.images = images;
+    }
+
+    public Start(int type) {
+        this.type = type;
     }
 
     public Start() {
@@ -36,19 +40,25 @@ public class Start extends BaseSprite implements Drawable {
 
     @Override
     public void draw(Graphics g) {
-        if (step >= 300) {
-            flag = false;
+        if (type == 0) {
+            if (step >= 300) {
+                flag = false;
+            }
+            if (flag) {
+                g.drawImage(images[step / 12], FrameConstant.FRAME_WIDTH / 2 - images[step / 12].getWidth(null) / 2,
+                        FrameConstant.FRAME_HEIGHT / 2 - images[step / 12].getHeight(null) / 2, images[step / 12].getWidth(null),
+                        images[step / 12].getHeight(null), null);
+                step++;
+            }
+            if (!flag) {
+                GameFrame gameFrame = DataStore.get("gameFrame");
+                gameFrame.starts.remove(this);
+                GameFrame.gameover = false;
+            }
         }
-        if (flag) {
-            g.drawImage(images[step / 12], FrameConstant.FRAME_WIDTH / 2 - images[step / 12].getWidth(null) / 2,
-                    FrameConstant.FRAME_HEIGHT / 2 - images[step / 12].getHeight(null) / 2, images[step / 12].getWidth(null),
-                    images[step / 12].getHeight(null), null);
-            step++;
-        }
-        if (!flag) {
-            GameFrame gameFrame = DataStore.get("gameFrame");
-            gameFrame.starts.remove(this);
-            GameFrame.gameover = false;
+
+        if (type == 1) {
+
         }
     }
 

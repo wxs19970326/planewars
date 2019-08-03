@@ -15,7 +15,8 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
 
     private Image[] images = {
             ImageMap.get("eb01"),
-            ImageMap.get("eb02")
+            ImageMap.get("eb02"),
+            ImageMap.get("eb03")
     };
     private int speed = FrameConstant.SPEED * 5;
 
@@ -51,8 +52,12 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
         }
 
         if (type == 1) {
-            setX(getX() + (int)(3 / Math.cos(speedD)));
-            setY(getY() + (int)(3 / Math.sin(speedD)));
+            setX(getX() + (int)(5 * Math.cos(speedD)));
+            setY(getY() + (int)(5 * Math.sin(speedD)));
+        }
+        if (type == 2) {
+            setX(getX() + (int)(5 / Math.cos(speedD)));
+            setY(getY() + (int)(5 / Math.sin(speedD)));
         }
 
         outOfBounds();
@@ -72,8 +77,15 @@ public class EnemyBullet extends BaseSprite implements Drawable, Moveable {
      */
     private void outOfBounds() {
         GameFrame gameFrame = DataStore.get("gameFrame");
-        if (getY() >FrameConstant.FRAME_HEIGHT - images[type].getHeight(null)) {
-            gameFrame.enemyBullets.remove(this);
+        if (type == 0) {
+            if (getY() >FrameConstant.FRAME_HEIGHT - images[type].getHeight(null)) {
+                gameFrame.enemyBullets.remove(this);
+            }
+        }
+        if (type == 1) {
+            if (getY() >FrameConstant.FRAME_HEIGHT - images[type].getHeight(null) || getY() < 0 || getX() < 0 || getX() > FrameConstant.FRAME_WIDTH) {
+                gameFrame.enemyBullets.remove(this);
+            }
         }
     }
 

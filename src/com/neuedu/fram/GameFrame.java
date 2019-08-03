@@ -229,7 +229,7 @@ public class GameFrame extends Frame {
             }
         });
         DataStore.put("boss",boss);
-        Start start = new Start();
+        Start start = new Start(0);
         starts.add(start);
         slips.add(slipScore);
 
