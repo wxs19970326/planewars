@@ -114,6 +114,7 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
 //            if (timer == 5) {
                 //如果打中则boss能量条增加开关变为true
                 Plane.flagEnergy = true;
+                Plane.isScore = true;
 //                timer = 0;
 //            }
         }

@@ -109,6 +109,7 @@ public class ImageMap {
         map.put("score0",ImageUtil.getImage("com\\neuedu\\img\\score\\0.png"));
         map.put("score1",ImageUtil.getImage("com\\neuedu\\img\\score\\1.png"));
         map.put("score2",ImageUtil.getImage("com\\neuedu\\img\\score\\2.png"));
+        map.put("score3",ImageUtil.getImage("com\\neuedu\\img\\score\\score.png"));
 
         /**
          * win
@@ -145,6 +146,39 @@ public class ImageMap {
         map.put("over11",ImageUtil.getImage("com\\neuedu\\img\\gameover\\11.png"));
         map.put("over12",ImageUtil.getImage("com\\neuedu\\img\\gameover\\12.png"));
         map.put("over13",ImageUtil.getImage("com\\neuedu\\img\\gameover\\13.png"));
+
+        /**
+         * score
+         */
+        map.put("00",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_0.png"));
+        map.put("01",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_1.png"));
+        map.put("02",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_2.png"));
+        map.put("03",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_3.png"));
+        map.put("04",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_4.png"));
+        map.put("05",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_5.png"));
+        map.put("06",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_6.png"));
+        map.put("07",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_7.png"));
+        map.put("08",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_8.png"));
+        map.put("09",ImageUtil.getImage("com\\neuedu\\img\\num\\img_num_9.png"));
+
+        /**
+         * 升级效果图
+         */
+        map.put("up0",ImageUtil.getImage("com\\neuedu\\img\\up\\0.png"));
+        map.put("up1",ImageUtil.getImage("com\\neuedu\\img\\up\\90.png"));
+        map.put("up2",ImageUtil.getImage("com\\neuedu\\img\\up\\180.png"));
+        map.put("up3",ImageUtil.getImage("com\\neuedu\\img\\up\\270.png"));
+        map.put("up4",ImageUtil.getImage("com\\neuedu\\img\\up\\360.png"));
+        map.put("up5",ImageUtil.getImage("com\\neuedu\\img\\up\\450.png"));
+        map.put("up6",ImageUtil.getImage("com\\neuedu\\img\\up\\540.png"));
+        map.put("up7",ImageUtil.getImage("com\\neuedu\\img\\up\\630.png"));
+        map.put("up8",ImageUtil.getImage("com\\neuedu\\img\\up\\720.png"));
+        map.put("up9",ImageUtil.getImage("com\\neuedu\\img\\up\\810.png"));
+        map.put("up10",ImageUtil.getImage("com\\neuedu\\img\\up\\900.png"));
+        map.put("up11",ImageUtil.getImage("com\\neuedu\\img\\up\\990.png"));
+        map.put("up12",ImageUtil.getImage("com\\neuedu\\img\\up\\1080.png"));
+        map.put("up13",ImageUtil.getImage("com\\neuedu\\img\\up\\1170.png"));
+        map.put("up14",ImageUtil.getImage("com\\neuedu\\img\\up\\1260.png"));
 
     }
 

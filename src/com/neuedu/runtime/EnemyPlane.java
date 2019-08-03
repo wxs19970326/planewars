@@ -112,11 +112,11 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
             setY(getY() + speed);
         } else if (type == 1){
             speedD = speedD + Math.PI * 6 / 180;
-            setX(getX() + (int)(6 * Math.cos(speedD)));
-            setY(getY() + speed * 3);
+            setX(getX() + (int)(5 * Math.cos(speedD)));
+            setY(getY() + speed * 2);
         } else {
             speedD = speedD + Math.PI * 6 / 180;
-            setX(getX() + (int)(6 * Math.cos(speedD)));
+            setX(getX() + (int)(5 * Math.cos(speedD)));
             setY(getY() + speed);
         }
         outOfBounds();

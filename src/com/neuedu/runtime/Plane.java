@@ -6,12 +6,14 @@ import com.neuedu.base.Moveable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.num.GameOver;
+import com.neuedu.num.LvUp;
 import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.Random;
 
 public class Plane extends BaseSprite implements Moveable, Drawable {
 
@@ -29,6 +31,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     private boolean left;
     //飞机速度
     private int speed = FrameConstant.SPEED * 4;
+     private Random random = new Random();
 
     //飞机血量
     public static int blood = 99;
@@ -48,6 +51,11 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
     private int score;
     //加分开关
     public static boolean isScore;
+
+    private Boss boss = DataStore.get("boss");
+
+    private int stepLvUp1;
+    private boolean stepLvUp2;
 
 //    //蓝条
 //    private Slip slip = new Slip(2);
@@ -77,6 +85,10 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 
     public int getBlood() {
         return blood;
+    }
+
+    public int getScore() {
+        return score;
     }
 
     /**
@@ -130,7 +142,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         g.setColor(Color.red);
         g.fillRoundRect(51,99,blood,10,5,5);
 
-//        g.drawString("当前等级:Lv"+lv,20, 118);
+        g.setColor(Color.white);
+        g.drawString("当前等级:",20, 143);
+        g.drawString("Lv"+lv,100, 143);
     }
 
     /**
@@ -311,7 +325,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      */
     private void setEnergy(){
         if (flagEnergy && energy < 99) {
-            energy = energy + 11;
+            energy = energy + 3;
             flagEnergy = false;
         }
     }
@@ -320,15 +334,37 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      * 飞机加分逻辑
      */
     private void addScore(){
+        GameFrame gameFrame = DataStore.get("gameFrame");
         if (isScore) {
-            score++;
+            score = score + random.nextInt(10) + 10;
             isScore = false;
         }
-        if (score == 30) {
+        if (score >= 2000 && score <= 3500) {
+            if (!stepLvUp2) {
+                stepLvUp1++;
+            }
             lv = 2;
+            //升级效果
+            if (gameFrame.lvUps.size() < 1 && stepLvUp1 == 1) {
+                LvUp lv = new LvUp();
+                gameFrame.lvUps.add(lv);
+                stepLvUp2 = true;
+                stepLvUp1 = 0;
+            }
         }
-        if (score == 70) {
+        if (score >= 5000) {
+            if (stepLvUp2) {
+                stepLvUp1++;
+            }
             lv = 3;
+            //升级效果
+            if (gameFrame.lvUps.size() < 1 && stepLvUp1 == 1) {
+                LvUp lv = new LvUp();
+                gameFrame.lvUps.add(lv);
+                stepLvUp2 = false;
+                stepLvUp1 = 0;
+            }
+
         }
 
 //        if (score == 120) {

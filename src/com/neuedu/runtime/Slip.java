@@ -31,7 +31,8 @@ public class Slip extends BaseSprite implements Drawable {
     private static Image[] imageScoer = {
             ImageMap.get("score0"),
             ImageMap.get("score1"),
-            ImageMap.get("score2")
+            ImageMap.get("score2"),
+            ImageMap.get("score3")
     };
 
     private static Image[] imageWin = {
@@ -106,12 +107,14 @@ public class Slip extends BaseSprite implements Drawable {
 
         //分数标志
         if (type == 4) {
-            g.drawImage(imageScoer[scoreStep / 12],15, 120, imageScoer[scoreStep / 12].getWidth(null),
-                    imageScoer[scoreStep / 12].getHeight(null),null);
-            scoreStep++;
-            if (scoreStep == 36) {
-                scoreStep = 0;
-            }
+//            g.drawImage(imageScoer[scoreStep / 12],FrameConstant.FRAME_WIDTH / 2 - imageScoer[scoreStep / 12].getWidth(null), FrameConstant.FRAME_HEIGHT / 2 - imageScoer[scoreStep / 12].getHeight(null) / 2, imageScoer[scoreStep / 12].getWidth(null) * 2,
+//                    imageScoer[scoreStep / 12].getHeight(null) * 2,null);
+//            scoreStep++;
+//            if (scoreStep == 36) {
+//                scoreStep = 0;
+//            }
+
+            g.drawImage(imageScoer[3], FrameConstant.FRAME_WIDTH - 140, 73, 133, 45,null);
         }
 
         //胜利动画
@@ -133,6 +136,9 @@ public class Slip extends BaseSprite implements Drawable {
             if (!winFlag) {
 //                GameFrame gameFrame = DataStore.get("gameFrame");
 //                gameFrame.slips.remove(this);
+                //分
+//                Slip slipScore = new Slip(4);
+//                gameFrame.slips.add(slipScore);
                 g.drawImage(imageWin[13], FrameConstant.FRAME_WIDTH / 2 - imageWin[13].getWidth(null) / 2,
                         FrameConstant.FRAME_HEIGHT / 2 - imageWin[13].getHeight(null) / 2, imageWin[13].getWidth(null),
                         imageWin[13].getHeight(null), null);

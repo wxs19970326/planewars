@@ -56,7 +56,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 
     @Override
     public void draw(Graphics g) {
-        fire();
+
         move();
         setBoold();
         timer++;
@@ -69,6 +69,9 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
 //            g.fillRoundRect(8, 42,blood,28,20,20);
             slip1.draw(g);
             slip.draw(g);
+        }
+        if (blood > 0) {
+            fire();
         }
         if (timer == 2) {
             count++;

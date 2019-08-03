@@ -48,7 +48,7 @@ public class Skill extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
-     * 判断子弹越界
+     * 判断技能越界
      */
     private void outOfBounds() {
         GameFrame gameFrame = DataStore.get("gameFrame");
@@ -90,10 +90,11 @@ public class Skill extends BaseSprite implements Drawable, Moveable {
      * @param boss
      */
     public void colBossChecked(Boss boss) {
-        GameFrame gameFrame = DataStore.get("gameFrame");
+//        GameFrame gameFrame = DataStore.get("gameFrame");
         if (boss.getRectangle().intersects(this.getRectangle())) {
 //            gameFrame.skills.remove(this);
             Boss.isBossBlood = true;
+            Plane.isScore = true;
         }
     }
 

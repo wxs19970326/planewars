@@ -2,10 +2,11 @@ package com.neuedu.fram;
 
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.num.GameOver;
+import com.neuedu.num.LvUp;
+import com.neuedu.num.Number;
 import com.neuedu.num.Start;
 import com.neuedu.runtime.*;
 import com.neuedu.util.DataStore;
-import com.neuedu.util.ImageMap;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -31,7 +32,11 @@ public class GameFrame extends Frame {
     private Boss boss = new Boss();
     //boss血条
     private Slip slipBoss = new Slip(3);
+    //分
     private Slip slipScore = new Slip(4);
+
+
+    private Number number = new Number();
 
 //    private Slip slipWin = new Slip(5);
 
@@ -63,6 +68,7 @@ public class GameFrame extends Frame {
 
     //游戏结束动画
     public List<GameOver> gameOvers = new CopyOnWriteArrayList<>();
+    public List<LvUp> lvUps = new CopyOnWriteArrayList<>();
 
 
     public GameFrame(){
@@ -83,8 +89,11 @@ public class GameFrame extends Frame {
              */
             plane.draw(g);
             //画分数
-            slipScore.draw(g);
-            if (Plane.blood <= 0) {
+            for (Slip slip : slips) {
+                slip.draw(g);
+            }
+            number.draw(g);
+            if (plane.getBlood() <= 0) {
                 for (GameOver gameOver : gameOvers) {
                     gameOver.draw(g);
                 }
@@ -94,6 +103,12 @@ public class GameFrame extends Frame {
 
         if (!gameover) {
             //若果boss没有存活并且通关状态为false,那么创建敌方飞机
+            //遍历敌方子弹一一画出来
+            for (EnemyBullet enemyBullet : enemyBullets) {
+                enemyBullet.draw(g);
+                enemyBullet.collisionChecking(plane);
+                enemyBullet.proChecked(itemEfftive);
+            }
             if (!Boss.isLive && !pass) {
                 enemyPlane.creatPlane();
             } else if (Boss.isLive && !pass){
@@ -130,6 +145,8 @@ public class GameFrame extends Frame {
             plane.draw(g);
             plane.collisionChecking(items);
 
+
+
             //遍历子弹容器一一画出来
             for (Bullet bullet : bulletList) {
                 bullet.draw(g);
@@ -144,12 +161,7 @@ public class GameFrame extends Frame {
 //                skill.colBossChecked(boss);
             }
 
-            //遍历敌方子弹一一画出来
-            for (EnemyBullet enemyBullet : enemyBullets) {
-                enemyBullet.draw(g);
-                enemyBullet.collisionChecking(plane);
-                enemyBullet.proChecked(itemEfftive);
-            }
+
 
             //画爆炸
             for (Explode explode : explodes) {
@@ -162,6 +174,9 @@ public class GameFrame extends Frame {
             for (ItemEffective effective : itemEfftive) {
                 effective.draw(g);
             }
+            for (LvUp lvUp : lvUps) {
+                lvUp.draw(g);
+            }
 
 //            for (Slip slip : slips) {
 //                slip.draw(g);
@@ -171,15 +186,16 @@ public class GameFrame extends Frame {
                 slip.draw(g);
             }
             //画分数
-            slipScore.draw(g);
+//            slipScore.draw(g);
+            number.draw(g);
 
         } else {
 
-            if (Plane.blood >= 0) {
-                plane.draw(g);
-                //画分数
-                slipScore.draw(g);
-            }
+//            if (Plane.blood >= 0) {
+//                plane.draw(g);
+//                //画分数
+//                slipScore.draw(g);
+//            }
         }
     }
 
@@ -215,6 +231,7 @@ public class GameFrame extends Frame {
         DataStore.put("boss",boss);
         Start start = new Start();
         starts.add(start);
+        slips.add(slipScore);
 
         //刷新
         new Thread(){
