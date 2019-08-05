@@ -61,7 +61,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 //    private Slip slip = new Slip(2);
 //    private Slip slip1 = new Slip(3);
 
-
+    private MusicPlayer musicPlayer;
 
 
     public Plane() {
@@ -227,6 +227,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
         }
     }
 
+
+
     /**
      * 判断飞机是否越界
      */
@@ -249,6 +251,7 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
      * 飞机开火的方法
      */
     private void fire(){
+
         GameFrame gameFrame = DataStore.get("gameFrame");
         if (lv == 1) {
             Bullet bullet = new Bullet(
@@ -281,6 +284,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 //        if (lv == 4) {
 //            skill();
 //        }
+        //我方飞机音效
+//        play(0);
+//        musicPlayer = null;
     }
     /**
      * 飞机技能
@@ -293,6 +299,9 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
                 ImageMap.get("skill01")
         );
         gameFrame.skills.add(skill);
+        //播放技能音效
+        play(7);
+        musicPlayer = null;
     }
 
     /**
@@ -313,6 +322,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
                 GameFrame.gameover = true;
                 GameOver gameOver = new GameOver();
                 gameFrame.gameOvers.add(gameOver);
+                play(6);
+                musicPlayer = null;
             }
 //            if (bloodFinally <= 0 && lv == 4) {
 //                GameFrame.gameover = true;
@@ -348,6 +359,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             if (gameFrame.lvUps.size() < 1 && stepLvUp1 == 1) {
                 LvUp lv = new LvUp();
                 gameFrame.lvUps.add(lv);
+                play(3);
+                musicPlayer = null;
                 stepLvUp2 = true;
                 stepLvUp1 = 0;
             }
@@ -361,6 +374,8 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
             if (gameFrame.lvUps.size() < 1 && stepLvUp1 == 1) {
                 LvUp lv = new LvUp();
                 gameFrame.lvUps.add(lv);
+                play(3);
+                musicPlayer = null;
                 stepLvUp2 = false;
                 stepLvUp1 = 0;
             }
@@ -370,6 +385,15 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
 //        if (score == 120) {
 //            lv = 4;
 //        }
+    }
+
+    /**
+     * 添加音效方法
+     * @param type 音效类型
+     */
+    private void play(int type){
+        musicPlayer = new MusicPlayer(type);
+        musicPlayer.start();
     }
 
     /**
@@ -385,13 +409,18 @@ public class Plane extends BaseSprite implements Moveable, Drawable {
                     if (gameFrame.itemEfftive.size() < 1){
                         ItemEffective effective = new ItemEffective(getX(),getY());
                         gameFrame.itemEfftive.add(effective);
+                        play(2);
+                        musicPlayer = null;
                     }
                 }
 
                 //加血道具实现加血效果
                 if (item.getType() == 1) {
+                    play(2);
+                    musicPlayer = null;
                     if (this.blood > ImageMap.get("my01").getWidth(null) - 4) {
                         this.blood = ImageMap.get("my01").getWidth(null);
+
                     } else {
                         this.blood = blood + 5;
                     }

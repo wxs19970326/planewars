@@ -69,7 +69,10 @@ public class GameFrame extends Frame {
     //游戏结束动画
     public List<GameOver> gameOvers = new CopyOnWriteArrayList<>();
     public List<LvUp> lvUps = new CopyOnWriteArrayList<>();
-
+    //音乐
+    private MusicPlayer musicPlayer;
+    private boolean isPlay = true;
+    private boolean isPlay1 = true;
 
     public GameFrame(){
         init();
@@ -83,6 +86,13 @@ public class GameFrame extends Frame {
             for (Start start : starts) {
                 start.draw(g);
             }
+
+            //游戏开始音效
+            /*if (starts.isEmpty() && isPlay1) {
+                play(8);
+                musicPlayer = null;
+                isPlay1 = false;
+            }*/
 
             /**
              * 当游戏没开始时的画面是己方飞机和分数血条等
@@ -102,13 +112,13 @@ public class GameFrame extends Frame {
 
 
         if (!gameover) {
-            //若果boss没有存活并且通关状态为false,那么创建敌方飞机
             //遍历敌方子弹一一画出来
             for (EnemyBullet enemyBullet : enemyBullets) {
                 enemyBullet.draw(g);
                 enemyBullet.collisionChecking(plane);
                 enemyBullet.proChecked(itemEfftive);
             }
+            //若果boss没有存活并且通关状态为false,那么创建敌方飞机
             if (!Boss.isLive && !pass) {
                 enemyPlane.creatPlane();
             } else if (Boss.isLive && !pass){
@@ -131,6 +141,11 @@ public class GameFrame extends Frame {
              */
             if (!Boss.isLive && pass) {
                 boss = null;
+                if (isPlay) {
+                    play(9);
+                    musicPlayer = null;
+                    isPlay = false;
+                }
             }
 
 
@@ -209,6 +224,15 @@ public class GameFrame extends Frame {
 //            items.add(item);
 //        }
 //    }
+
+    /**
+     * 添加音效方法
+     * @param type 音效类型
+     */
+    private void play(int type){
+        musicPlayer = new MusicPlayer(type);
+        musicPlayer.start();
+    }
 
     private void init(){
         DataStore.put("Plane",plane);

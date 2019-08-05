@@ -40,10 +40,12 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     private Slip slip1 = new Slip(1);
 
     //boss运动方向
-    private boolean right;
-    private boolean up;
+//    private boolean right;
+//    private boolean up;
 
     private int step;
+
+
 
     public Boss() {
         this(
@@ -147,6 +149,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
     }
 
     private void setBoold(){
+
         GameFrame gameFrame = DataStore.get("gameFrame");
 //        if (blood <= 0) {
 //            Explode explode = new Explode(getX(),getY(),9);
@@ -182,6 +185,7 @@ public class Boss extends BaseSprite implements Drawable, Moveable {
                     isMove = false;
                     Explode explode1 = new Explode(getX(),getY(),9);
                     gameFrame.explodes.add(explode1);
+
                 }
             }
         }

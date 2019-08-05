@@ -17,6 +17,10 @@ public class Slip extends BaseSprite implements Drawable {
 
     private int type;
 
+
+
+    private int timerMusic;
+
     private static Image[] images = {
             ImageMap.get("bossblood"),
             ImageMap.get("bossblood1"),
@@ -91,12 +95,23 @@ public class Slip extends BaseSprite implements Drawable {
         //type=3boss出场警告
         if (type == 3) {
             if (flag) {
+
+
                 g.drawImage(imageWarning[step / 20], FrameConstant.FRAME_WIDTH / 2 - imageWarning[step / 20].getWidth(null) / 2,
                         FrameConstant.FRAME_HEIGHT / 2 - imageWarning[step / 20].getHeight(null) / 2, imageWarning[step / 20].getWidth(null),
                         imageWarning[step / 20].getHeight(null), null);
+                /*timerMusic++;
+                if (timerMusic == 40) {
+                    play(4);
+                    musicPlayer = null;
+                }*/
+                if (timerMusic == 40) {
+                    timerMusic = 0;
+                }
                 step++;
                 if (step == 40) {
                     step = 0;
+
                 }
                 timer++;
             }
@@ -123,9 +138,11 @@ public class Slip extends BaseSprite implements Drawable {
                 g.drawImage(imageWin[winStep / 15], FrameConstant.FRAME_WIDTH / 2 - imageWin[winStep / 15].getWidth(null) / 2,
                         FrameConstant.FRAME_HEIGHT / 2 - imageWin[step / 15].getHeight(null) / 2, imageWin[winStep / 15].getWidth(null),
                         imageWin[winStep / 15].getHeight(null), null);
+
                 winStep++;
                 if (winStep == 210) {
                     winStep = 0;
+
                 }
                 winTimer++;
             }
@@ -139,11 +156,15 @@ public class Slip extends BaseSprite implements Drawable {
                 //分
 //                Slip slipScore = new Slip(4);
 //                gameFrame.slips.add(slipScore);
+
                 g.drawImage(imageWin[13], FrameConstant.FRAME_WIDTH / 2 - imageWin[13].getWidth(null) / 2,
                         FrameConstant.FRAME_HEIGHT / 2 - imageWin[13].getHeight(null) / 2, imageWin[13].getWidth(null),
                         imageWin[13].getHeight(null), null);
+
             }
         }
 
     }
+
+
 }

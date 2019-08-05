@@ -4,6 +4,7 @@ import com.neuedu.base.BaseSprite;
 import com.neuedu.base.Drawable;
 import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
+import com.neuedu.runtime.MusicPlayer;
 import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
 
@@ -27,6 +28,7 @@ public class Start extends BaseSprite implements Drawable {
     public Start(int x, int y, Image[] images) {
         super(x, y);
         this.images = images;
+
     }
 
     public Start(int type) {

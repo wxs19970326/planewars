@@ -21,6 +21,8 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
     private Random random = new Random();
     private int timer;
 
+    private MusicPlayer musicPlayer;
+
     public Bullet() {
     }
 
@@ -52,6 +54,15 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
     }
 
     /**
+     * 添加音效方法
+     * @param type 音效类型
+     */
+    private void play(int type){
+        musicPlayer = new MusicPlayer(type);
+        musicPlayer.start();
+    }
+
+    /**
      * 判断我方子弹与敌方是否撞击
      * @param list
      */
@@ -59,11 +70,14 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
         GameFrame gameFrame = DataStore.get("gameFrame");
         for (EnemyPlane enemyPlane : list) {
             if (enemyPlane.getRectangle().intersects(this.getRectangle())) {
+
                 //击中敌方飞机后，敌机减血逻辑
                 enemyPlane.setHp(enemyPlane.getHp()-1);
                 if (enemyPlane.getHp() <= 0) {
                     list.remove(enemyPlane);
                     //打中则添加爆炸效果
+                    play(5);
+                    musicPlayer = null;
                     Explode e = new Explode(enemyPlane.getX(),enemyPlane.getY(), 0);
                     gameFrame.explodes.add(e);
                     //敌机类型为1则生成保护罩道具
@@ -118,6 +132,8 @@ public class Bullet extends BaseSprite implements Drawable, Moveable {
                 Plane.isScore = true;
 //                timer = 0;
 //            }
+            play(5);
+            musicPlayer = null;
             if (random.nextInt(1000) > 985) {
                 Item itemBlood = new Item(boss.getX() + ImageMap.get("boss1").getWidth(null) / 2,boss.getY() + ImageMap.get("boss1").getHeight(null),1);
                 gameFrame.items.add(itemBlood);

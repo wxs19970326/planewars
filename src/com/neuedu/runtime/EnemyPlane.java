@@ -183,8 +183,18 @@ public class EnemyPlane extends BaseSprite implements Drawable, Moveable {
                     getY() + images[type].getHeight(null),
                     0
             );
+//            play();
             gameFrame.enemyBullets.add(bullet);
         }
+
+    }
+
+    /**
+     * 飞机开火音效
+     */
+    private void play(){
+        MusicPlayer musicPlayer = new MusicPlayer(1);
+        musicPlayer.start();
     }
 
     /**
