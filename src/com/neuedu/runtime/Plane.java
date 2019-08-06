@@ -9,6 +9,7 @@ import com.neuedu.num.GameOver;
 import com.neuedu.num.LvUp;
 import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
+import com.neuedu.util.MusicPlayer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

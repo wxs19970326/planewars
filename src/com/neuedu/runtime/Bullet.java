@@ -7,6 +7,7 @@ import com.neuedu.constant.FrameConstant;
 import com.neuedu.fram.GameFrame;
 import com.neuedu.util.DataStore;
 import com.neuedu.util.ImageMap;
+import com.neuedu.util.MusicPlayer;
 
 import java.awt.Image;
 import java.awt.Graphics;

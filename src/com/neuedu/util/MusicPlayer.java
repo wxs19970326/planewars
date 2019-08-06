@@ -1,4 +1,4 @@
-package com.neuedu.runtime;
+package com.neuedu.util;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
